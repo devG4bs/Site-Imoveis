@@ -78,14 +78,14 @@
                     
                     <div class="text-center mt-3">
                         <a href="/" class="text-decoration-none">
-                            <i class="fas fa-home me-1"></i>Voltar para a p·gina inicial
+                            <i class="fas fa-home me-1"></i>Voltar para a pùgina inicial
                         </a>
                     </div>
                     
                     <hr class="my-4">
                     
                     <div class="text-center">
-                        <p>N„o tem uma conta?</p>
+                        <p>Nùo tem uma conta?</p>
                         <button type="button" class="btn btn-outline-primary" id="btnRegistrar">
                             <i class="fas fa-user-plus me-1"></i>Registrar-se
                         </button>
@@ -141,15 +141,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar se j· est· autenticado
+            // Verificar se jù estù autenticado
             const token = localStorage.getItem('token');
             if (token) {
-                // Redirecionar para a p·gina inicial
+                // Redirecionar para a pùgina inicial
                 window.location.href = '/';
                 return;
             }
             
-            // Configurar formul·rio de login
+            // Configurar formulùrio de login
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
@@ -160,8 +160,8 @@
                 const errorElement = document.getElementById('loginError');
                 errorElement.classList.add('d-none');
                 
-                // Enviar requisiÁ„o de login
-                console.log('Enviando requisiÁ„o de login para /auth/login');
+                // Enviar requisiùùo de login
+                console.log('Enviando requisiùùo de login para /auth/login');
                 fetch('/auth/login', {
                     method: 'POST',
                     headers: {
@@ -182,13 +182,13 @@
                 })
                 .then(data => {
                     console.log('Login bem-sucedido, dados recebidos:', data);
-                    // Salvar token e informaÁıes do usu·rio
+                    // Salvar token e informaùùes do usuùrio
                     localStorage.setItem('token', data.access_token);
                     localStorage.setItem('userId', data.user_id);
                     localStorage.setItem('isAdmin', data.is_admin);
                     
-                    // Redirecionar para a p·gina inicial
-                    console.log('Redirecionando para a p·gina inicial');
+                    // Redirecionar para a pùgina inicial
+                    console.log('Redirecionando para a pùgina inicial');
                     window.location.href = '/';
                 })
                 .catch(error => {
@@ -205,7 +205,7 @@
                 modal.show();
             });
             
-            // Registrar novo usu·rio
+            // Registrar novo usuùrio
             document.getElementById('btnSalvarRegistro').addEventListener('click', function() {
                 const nome = document.getElementById('regNome').value;
                 const email = document.getElementById('regEmail').value;
@@ -217,19 +217,19 @@
                 errorElement.classList.add('d-none');
                 
                 if (!nome || !email || !senha || !confirmSenha) {
-                    errorElement.textContent = 'Todos os campos s„o obrigatÛrios';
+                    errorElement.textContent = 'Todos os campos sùo obrigatùrios';
                     errorElement.classList.remove('d-none');
                     return;
                 }
                 
                 if (senha !== confirmSenha) {
-                    errorElement.textContent = 'As senhas n„o coincidem';
+                    errorElement.textContent = 'As senhas nùo coincidem';
                     errorElement.classList.remove('d-none');
                     return;
                 }
                 
-                // Enviar requisiÁ„o de registro
-                console.log('Enviando requisiÁ„o de registro');
+                // Enviar requisiùùo de registro
+                console.log('Enviando requisiùùo de registro');
                 fetch('/auth/registrar', {
                     method: 'POST',
                     headers: {
@@ -247,10 +247,10 @@
                     if (!response.ok) {
                         if (response.status === 400) {
                             return response.json().then(data => {
-                                throw new Error(data.detail || 'Erro ao registrar usu·rio');
+                                throw new Error(data.detail || 'Erro ao registrar usuùrio');
                             });
                         }
-                        throw new Error('Erro ao registrar usu·rio');
+                        throw new Error('Erro ao registrar usuùrio');
                     }
                     return response.json();
                 })
@@ -261,9 +261,9 @@
                     bootstrap.Modal.getInstance(document.getElementById('registroModal')).hide();
                     
                     // Mostrar mensagem de sucesso
-                    alert('Usu·rio registrado com sucesso! FaÁa login para continuar.');
+                    alert('Usuùrio registrado com sucesso! Faùa login para continuar.');
                     
-                    // Preencher o formul·rio de login
+                    // Preencher o formulùrio de login
                     document.getElementById('email').value = email;
                     document.getElementById('senha').value = senha;
                 })

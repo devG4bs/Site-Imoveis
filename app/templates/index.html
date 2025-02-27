@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freire e Oliveira Imoveis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,17 +22,17 @@
             right: 10px;
             z-index: 1;
         }
-        /* Esconder bot√µes de lixeira na p√°gina inicial */
+        /* Esconder botıes de lixeira na p·gina inicial */
         .btn-outline-danger {
             display: none !important;
         }
-        /* Garantir que o bot√£o Ver seja exibido */
+        /* Garantir que o bot„o Ver seja exibido */
         .btn-outline-primary, .btn-primary {
             display: inline-block !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
-        /* Estilo espec√≠fico para o bot√£o Ver */
+        /* Estilo especÌfico para o bot„o Ver */
         .card-footer .btn-primary {
             display: block !important;
             width: auto !important;
@@ -45,71 +46,10 @@
             height: 400px;
             object-fit: contain;
         }
-
-        /* Novos estilos */
-        .navbar {
-            background: #1a1a1a !important; /* Fundo s√≥lido escuro */
-            position: relative; /* Mudando para relative ao inv√©s de absolute */
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-        
-        .navbar-brand {
-            color: white !important;
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-        }
-        
-        .nav-link {
-            color: white !important;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            padding: 0.5rem 1rem !important;
-            margin: 0 0.2rem;
-        }
-
-        .nav-link:hover {
-            color: #ffffff !important;
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-        }
-
-        .navbar .dropdown-menu {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 0.5rem;
-        }
-
-        .navbar .dropdown-item {
-            color: white;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            margin: 0.2rem 0;
-        }
-
-        .navbar .dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 3px;
-        }
-
-        .navbar-toggler {
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            padding: 0.5rem;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
         
         .section-services {
             position: relative;
-            margin-top: 0; /* Removendo margem negativa */
+            margin-top: 0;
         }
 
         .section-services::before {
@@ -168,7 +108,7 @@
             margin: 0 auto;
         }
 
-        /* Estilos para o carrossel de im√≥veis */
+        /* Estilos para o carrossel de imÛveis */
         #carouselImoveis {
             padding: 0 60px;
             margin-bottom: 40px;
@@ -307,33 +247,22 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="/">Freire e Oliveira Imoveis</a>
+            <a class="navbar-brand" href="/">Freire e Oliveira ImÛveis</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">In√≠cio</a>
+                        <a class="nav-link active" href="/">InÌcio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/imoveis/lista" data-link="imoveis">Im√≥veis</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="filtroTipo" role="button" data-bs-toggle="dropdown">
-                            Filtrar por Tipo
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('todos')">Todos</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('venda')">Venda</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('aluguel')">Aluguel</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('leilao')">Leil√£o</a></li>
-                        </ul>
+                        <a class="nav-link" href="/imoveis/lista">ImÛveis</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/sobre">Sobre N√≥s</a>
+                        <a class="nav-link" href="/sobre">Sobre NÛs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contatos">Contatos</a>
@@ -359,34 +288,34 @@
     </nav>
 
     <div class="container-fluid p-0">
-        <!-- Primeira Div - Carrossel de Servi√ßos -->
+        <!-- Primeira Div - Carrossel de ServiÁos -->
         <div class="section-services mb-5">
             <div id="carouselServices" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="hover" data-bs-wrap="true" data-bs-keyboard="true" data-bs-touch="true">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="position-relative">
-                            <img src="/static/img/service1.jpg" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="Servi√ßo 1">
+                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="ServiÁo 1">
                             <div class="position-absolute top-50 start-50 translate-middle text-center text-white hero-text">
-                                <h1>Encontre o Im√≥vel dos Seus Sonhos</h1>
-                                <p>Oferecemos o melhor servi√ßo de compra, venda e aluguel de im√≥veis</p>
+                                <h1>Encontre o ImÛvel dos Seus Sonhos</h1>
+                                <p>Oferecemos o melhor serviÁo de compra, venda e aluguel de imÛveis</p>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="position-relative">
-                            <img src="/static/img/service2.jpg" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="Servi√ßo 2">
+                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="ServiÁo 2">
                             <div class="position-absolute top-50 start-50 translate-middle text-center text-white hero-text">
                                 <h1>Assessoria Completa</h1>
-                                <p>Acompanhamento em todas as etapas da negocia√ß√£o</p>
+                                <p>Acompanhamento em todas as etapas da negociaÁ„o</p>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="position-relative">
-                            <img src="/static/img/service3.jpg" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="Servi√ßo 3">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1453&q=80" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="ServiÁo 3">
                             <div class="position-absolute top-50 start-50 translate-middle text-center text-white hero-text">
-                                <h1>Avalia√ß√£o Profissional</h1>
-                                <p>Avalia√ß√£o precisa do seu im√≥vel com profissionais especializados</p>
+                                <h1>AvaliaÁ„o Profissional</h1>
+                                <p>AvaliaÁ„o precisa do seu imÛvel com profissionais especializados</p>
                             </div>
                         </div>
                     </div>
@@ -400,7 +329,7 @@
             </div>
         </div>
 
-        <!-- Se√ß√£o de Pesquisa -->
+        <!-- SeÁ„o de Pesquisa -->
         <div class="search-section">
             <div class="container">
                 <div class="card shadow-lg">
@@ -410,11 +339,11 @@
                                 <label class="form-label">Rua/Cidade</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                    <input type="text" class="form-control" placeholder="Digite a localiza√ß√£o">
+                                    <input type="text" class="form-control" placeholder="Digite a localizaÁ„o">
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Tipo de Im√≥vel</label>
+                                <label class="form-label">Tipo de ImÛvel</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-home"></i></span>
                                     <select class="form-select">
@@ -427,10 +356,10 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <label class="form-label">Pre√ßo M√°ximo</label>
+                                <label class="form-label">PreÁo M·ximo</label>
                                 <div class="input-group">
                                     <span class="input-group-text">R$</span>
-                                    <input type="number" class="form-control" placeholder="Valor m√°ximo">
+                                    <input type="number" class="form-control" placeholder="Valor m·ximo">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -444,14 +373,14 @@
             </div>
         </div>
 
-        <!-- Segunda Div - Carrossel de Im√≥veis -->
+        <!-- Segunda Div - Carrossel de ImÛveis -->
         <div class="section-properties bg-light py-5">
             <div class="container">
-                <h2 class="text-center mb-5">Im√≥veis em Destaque</h2>
+                <h2 class="text-center mb-5">ImÛveis em Destaque</h2>
                 <div class="position-relative">
                     <div class="carousel-container overflow-hidden">
                         <div class="carousel-wrapper d-flex transition-transform" id="imoveisContainer">
-                            <!-- Os im√≥veis ser√£o carregados aqui dinamicamente -->
+                            <!-- Os imÛveis ser„o carregados aqui dinamicamente -->
                         </div>
                     </div>
                     <button class="carousel-control prev-button" onclick="deslizarCarrossel('prev')">
@@ -469,20 +398,20 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <h2 class="mb-4">Conhe√ßa Nosso Corretor</h2>
-                        <p class="fs-5">Com mais de 10 anos de experi√™ncia no mercado imobili√°rio, nosso corretor est√° pronto para ajudar voc√™ a encontrar o im√≥vel perfeito ou a realizar a melhor negocia√ß√£o para seu im√≥vel.</p>
-                        <p class="fs-5">Oferecemos um atendimento personalizado e profissional, sempre focado em atender √†s suas necessidades espec√≠ficas.</p>
+                        <h2 class="mb-4">ConheÁa Nosso Corretor</h2>
+                        <p class="fs-5">Com mais de 10 anos de experiÍncia no mercado imobili·rio, nosso corretor est· pronto para ajudar vocÍ a encontrar o imÛvel perfeito ou a realizar a melhor negociaÁ„o para seu imÛvel.</p>
+                        <p class="fs-5">Oferecemos um atendimento personalizado e profissional, sempre focado em atender ‡s suas necessidades especÌficas.</p>
                         <a href="/contatos" class="btn btn-primary btn-lg mt-3">Entre em Contato</a>
                     </div>
                     <div class="col-md-6 text-center">
-                        <img src="/static/img/corretor.jpg" class="img-fluid rounded-circle" alt="Corretor" style="max-width: 400px;">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" class="img-fluid rounded-circle" alt="Corretor" style="max-width: 400px;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para visualizar detalhes do im√≥vel -->
+    <!-- Modal para visualizar detalhes do imÛvel -->
     <div class="modal fade" id="imovelModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -493,7 +422,7 @@
                 <div class="modal-body">
                     <div id="carouselImovel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="carouselImovelInner">
-                            <!-- As fotos ser√£o carregadas aqui dinamicamente -->
+                            <!-- As fotos ser„o carregadas aqui dinamicamente -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselImovel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -501,23 +430,23 @@
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselImovel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Pr√≥ximo</span>
+                            <span class="visually-hidden">PrÛximo</span>
                         </button>
                     </div>
                     <div class="mt-3" id="imovelDetalhes">
-                        <!-- Detalhes do im√≥vel ser√£o carregados aqui -->
+                        <!-- Detalhes do imÛvel ser„o carregados aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para novo im√≥vel -->
+    <!-- Modal para novo imÛvel -->
     <div class="modal fade" id="novoImovelModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Novo Im√≥vel</h5>
+                    <h5 class="modal-title">Novo ImÛvel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -528,7 +457,7 @@
                                 <select class="form-select" name="tipo" required>
                                     <option value="venda">Venda</option>
                                     <option value="aluguel">Aluguel</option>
-                                    <option value="leilao">Leil√£o</option>
+                                    <option value="leilao">Leil„o</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -541,11 +470,11 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">T√≠tulo</label>
+                            <label class="form-label">TÌtulo</label>
                             <input type="text" class="form-control" name="titulo" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Descri√ß√£o</label>
+                            <label class="form-label">DescriÁ„o</label>
                             <textarea class="form-control" name="descricao" rows="3" required></textarea>
                         </div>
                         <div class="row mb-3">
@@ -554,7 +483,7 @@
                                 <input type="number" class="form-control" name="valor" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">√Årea (m¬≤)</label>
+                                <label class="form-label">¡rea (m≤)</label>
                                 <input type="number" class="form-control" name="area" required>
                             </div>
                         </div>
@@ -573,7 +502,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Endere√ßo</label>
+                            <label class="form-label">EndereÁo</label>
                             <input type="text" class="form-control" name="endereco" required>
                         </div>
                         <div class="mb-3">
@@ -595,13 +524,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="fotosModalTitle">Fotos do Im√≥vel</h5>
+                    <h5 class="modal-title" id="fotosModalTitle">Fotos do ImÛvel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div id="carouselFotos" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="carouselFotosInner">
-                            <!-- As fotos ser√£o carregadas aqui dinamicamente -->
+                            <!-- As fotos ser„o carregadas aqui dinamicamente -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselFotos" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -609,11 +538,11 @@
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselFotos" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Pr√≥ximo</span>
+                            <span class="visually-hidden">PrÛximo</span>
                         </button>
                     </div>
                     <div class="mt-3" id="imovelDetalhes">
-                        <!-- Detalhes do im√≥vel ser√£o carregados aqui -->
+                        <!-- Detalhes do imÛvel ser„o carregados aqui -->
                     </div>
                 </div>
             </div>
@@ -622,11 +551,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar autentica√ß√£o
+            // Verificar autenticaÁ„o
             const token = localStorage.getItem('token');
             const isAdmin = localStorage.getItem('isAdmin');
             
-            // Atualizar a interface com base na autentica√ß√£o
+            // Atualizar a interface com base na autenticaÁ„o
             if (token) {
                 document.getElementById('loginItem').classList.add('d-none');
                 document.getElementById('logoutItem').classList.remove('d-none');
@@ -636,7 +565,7 @@
                 }
             }
 
-            // Vari√°veis globais para o carrossel
+            // Vari·veis globais para o carrossel
             let imoveisData = [];
             let posicaoAtual = 0;
             
@@ -651,12 +580,12 @@
                         renderizarImoveis();
                     })
                     .catch(error => {
-                        console.error('Erro ao carregar im√≥veis:', error);
-                        alert('Erro ao carregar im√≥veis. Por favor, tente novamente.');
+                        console.error('Erro ao carregar imÛveis:', error);
+                        alert('Erro ao carregar imÛveis. Por favor, tente novamente.');
                     });
             };
 
-            // Fun√ß√£o para renderizar os im√≥veis
+            // FunÁ„o para renderizar os imÛveis
             function renderizarImoveis() {
                 const container = document.getElementById('imoveisContainer');
                 if (!container) return;
@@ -666,7 +595,7 @@
                 if (imoveisData.length === 0) {
                     container.innerHTML = `
                         <div class="col-12 text-center py-5">
-                            <h3>Nenhum im√≥vel encontrado</h3>
+                            <h3>Nenhum imÛvel encontrado</h3>
                         </div>
                     `;
                     return;
@@ -703,7 +632,7 @@
                                     <strong>R$ ${formatarValor(imovel.valor)}</strong>
                                 </p>
                                 <div class="d-flex justify-content-between">
-                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m¬≤</span>
+                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m≤</span>
                                     <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
                                     <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
                                     <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
@@ -721,7 +650,7 @@
                 });
             }
 
-            // Fun√ß√£o para deslizar o carrossel
+            // FunÁ„o para deslizar o carrossel
             window.deslizarCarrossel = function(direcao) {
                 const container = document.getElementById('imoveisContainer');
                 const totalSlides = imoveisData.length;
@@ -736,12 +665,12 @@
                 container.style.transform = `translateX(${deslocamento}%)`;
             };
 
-            // Fun√ß√µes auxiliares
+            // FunÁıes auxiliares
             function formatarTipo(tipo) {
                 const tipos = {
                     'venda': 'Venda',
                     'aluguel': 'Aluguel',
-                    'leilao': 'Leil√£o'
+                    'leilao': 'Leil„o'
                 };
                 return tipos[tipo] || tipo;
             }
@@ -762,7 +691,7 @@
                 return classes[etiqueta.toLowerCase()] || 'bg-secondary';
             }
 
-            // Carregar todos os im√≥veis inicialmente
+            // Carregar todos os imÛveis inicialmente
             filtrarImoveis('todos');
             
             // Event listeners para menu
@@ -772,7 +701,7 @@
                 document.getElementById('menuUsuarios').classList.remove('active');
                 document.getElementById('imoveisContent').classList.remove('d-none');
                 document.getElementById('usuariosContent').classList.add('d-none');
-                document.getElementById('contentTitle').textContent = 'Gerenciar Im√≥veis';
+                document.getElementById('contentTitle').textContent = 'Gerenciar ImÛveis';
                 document.getElementById('btnNovoImovel').parentElement.classList.remove('d-none');
             });
             
@@ -782,7 +711,7 @@
                 document.getElementById('menuImoveis').classList.remove('active');
                 document.getElementById('imoveisContent').classList.add('d-none');
                 document.getElementById('usuariosContent').classList.remove('d-none');
-                document.getElementById('contentTitle').textContent = 'Gerenciar Usu√°rios';
+                document.getElementById('contentTitle').textContent = 'Gerenciar Usu·rios';
                 document.getElementById('btnNovoImovel').parentElement.classList.add('d-none');
                 carregarUsuarios();
             });
@@ -796,13 +725,13 @@
                 window.location.href = '/login';
             });
             
-            // Abrir modal de novo im√≥vel
+            // Abrir modal de novo imÛvel
             document.getElementById('btnNovoImovel')?.addEventListener('click', function() {
                 const modal = new bootstrap.Modal(document.getElementById('novoImovelModal'));
                 modal.show();
             });
             
-            // Salvar novo im√≥vel
+            // Salvar novo imÛvel
             document.getElementById('btnSalvarImovel')?.addEventListener('click', function() {
                 const form = document.getElementById('imovelForm');
                 const formData = new FormData(form);
@@ -817,9 +746,9 @@
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 401 || response.status === 403) {
-                            throw new Error('Voc√™ n√£o tem permiss√£o para realizar esta a√ß√£o');
+                            throw new Error('VocÍ n„o tem permiss„o para realizar esta aÁ„o');
                         }
-                        throw new Error('Erro ao salvar im√≥vel');
+                        throw new Error('Erro ao salvar imÛvel');
                     }
                     return response.json();
                 })
@@ -827,10 +756,10 @@
                     // Fechar modal
                     bootstrap.Modal.getInstance(document.getElementById('novoImovelModal')).hide();
                     
-                    // Recarregar im√≥veis
+                    // Recarregar imÛveis
                     filtrarImoveis('todos');
                     
-                    // Limpar formul√°rio
+                    // Limpar formul·rio
                     form.reset();
                 })
                 .catch(error => {
@@ -838,7 +767,7 @@
                 });
             });
 
-            // Adicionar manipulador de eventos para links de navega√ß√£o
+            // Adicionar manipulador de eventos para links de navegaÁ„o
             document.querySelectorAll('[data-link]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -848,7 +777,7 @@
             });
         });
         
-        // Fun√ß√£o para carregar im√≥veis
+        // FunÁ„o para carregar imÛveis
         function carregarImoveis(tipo = null) {
             let url = '/imoveis/';
             if (tipo && tipo !== 'todos') {
@@ -871,7 +800,7 @@
                 container.innerHTML = '';
                 indicators.innerHTML = '';
                 
-                // Agrupar im√≥veis em grupos de 3
+                // Agrupar imÛveis em grupos de 3
                 const grupos = [];
                 for (let i = 0; i < imoveis.length; i += 3) {
                     grupos.push(imoveis.slice(i, i + 3));
@@ -912,7 +841,7 @@
                         switch (imovel.tipo) {
                             case 'venda': tipoLabel = 'Venda'; break;
                             case 'aluguel': tipoLabel = 'Aluguel'; break;
-                            case 'leilao': tipoLabel = 'Leil√£o'; break;
+                            case 'leilao': tipoLabel = 'Leil„o'; break;
                         }
                         
                         col.innerHTML = `
@@ -932,7 +861,7 @@
                                         <strong>R$ ${imovel.valor.toLocaleString('pt-BR')}</strong>
                                     </p>
                                     <div class="d-flex justify-content-between">
-                                        <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m¬≤</span>
+                                        <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m≤</span>
                                         <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
                                         <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
                                         <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
@@ -962,19 +891,19 @@
                     container.appendChild(carouselItem);
                 });
 
-                // Inicializar o carrossel ap√≥s carregar os itens
+                // Inicializar o carrossel apÛs carregar os itens
                 const carousel = new bootstrap.Carousel(document.getElementById('carouselImoveis'), {
-                    interval: 8000, // Tempo entre transi√ß√µes autom√°ticas (8 segundos)
+                    interval: 8000, // Tempo entre transiÁıes autom·ticas (8 segundos)
                     wrap: true,
-                    pause: 'hover' // Pausa quando o mouse est√° sobre o carrossel
+                    pause: 'hover' // Pausa quando o mouse est· sobre o carrossel
                 });
             })
             .catch(error => {
-                console.error('Erro ao carregar im√≥veis:', error);
+                console.error('Erro ao carregar imÛveis:', error);
             });
         }
         
-        // Fun√ß√£o para carregar usu√°rios
+        // FunÁ„o para carregar usu·rios
         function carregarUsuarios() {
             const token = localStorage.getItem('token');
             
@@ -985,7 +914,7 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Erro ao carregar usu√°rios');
+                    throw new Error('Erro ao carregar usu·rios');
                 }
                 return response.json();
             })
@@ -1004,7 +933,7 @@
                         <td>${usuario.id}</td>
                         <td>${usuario.nome}</td>
                         <td>${usuario.email}</td>
-                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">N√£o</span>'}</td>
+                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">N„o</span>'}</td>
                         <td>${dataFormatada}</td>
                     `;
                     
@@ -1012,13 +941,13 @@
                 });
             })
             .catch(error => {
-                console.error('Erro ao carregar usu√°rios:', error);
+                console.error('Erro ao carregar usu·rios:', error);
             });
         }
         
-        // Fun√ß√£o para excluir im√≥vel
+        // FunÁ„o para excluir imÛvel
         function excluirImovel(id) {
-            if (confirm('Tem certeza que deseja excluir este im√≥vel?')) {
+            if (confirm('Tem certeza que deseja excluir este imÛvel?')) {
                 const token = localStorage.getItem('token');
                 
                 fetch(`/imoveis/${id}`, {
@@ -1030,12 +959,12 @@
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 401 || response.status === 403) {
-                            throw new Error('Voc√™ n√£o tem permiss√£o para realizar esta a√ß√£o');
+                            throw new Error('VocÍ n„o tem permiss„o para realizar esta aÁ„o');
                         }
-                        throw new Error('Erro ao excluir im√≥vel');
+                        throw new Error('Erro ao excluir imÛvel');
                     }
                     
-                    // Recarregar im√≥veis
+                    // Recarregar imÛveis
                     filtrarImoveis('todos');
                 })
                 .catch(error => {
@@ -1044,16 +973,16 @@
             }
         }
         
-        // Fun√ß√£o para visualizar im√≥vel
+        // FunÁ„o para visualizar imÛvel
         function visualizarImovel(id) {
             window.location.href = `/imoveis/${id}/detalhes`;
         }
 
-        // Fun√ß√£o para visualizar fotos
+        // FunÁ„o para visualizar fotos
         function visualizarFotos(id) {
             const token = localStorage.getItem('token');
             
-            // Buscar o im√≥vel para obter as fotos
+            // Buscar o imÛvel para obter as fotos
             fetch(`/imoveis/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -1061,7 +990,7 @@
             })
             .then(response => response.json())
             .then(imovel => {
-                // Atualizar o t√≠tulo do modal
+                // Atualizar o tÌtulo do modal
                 document.getElementById('fotosModalTitle').textContent = `${imovel.titulo}`;
                 
                 // Limpar o carousel
@@ -1091,14 +1020,14 @@
                     carouselInner.appendChild(item);
                 }
                 
-                // Adicionar detalhes do im√≥vel
+                // Adicionar detalhes do imÛvel
                 const detalhesContainer = document.getElementById('imovelDetalhes');
                 
                 let tipoLabel = '';
                 switch (imovel.tipo) {
                     case 'venda': tipoLabel = 'Venda'; break;
                     case 'aluguel': tipoLabel = 'Aluguel'; break;
-                    case 'leilao': tipoLabel = 'Leil√£o'; break;
+                    case 'leilao': tipoLabel = 'Leil„o'; break;
                 }
                 
                 let etiquetaHTML = '';
@@ -1128,7 +1057,7 @@
                                 <div class="col-md-3 mb-2">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-ruler-combined me-2"></i>
-                                        <span>${imovel.area} m¬≤</span>
+                                        <span>${imovel.area} m≤</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-2">
@@ -1164,7 +1093,7 @@
             });
         }
 
-        // Inicializar todos os carross√©is com configura√ß√µes padr√£o
+        // Inicializar todos os carrossÈis com configuraÁıes padr„o
         document.addEventListener('DOMContentLoaded', function() {
             const carousels = document.querySelectorAll('.carousel');
             carousels.forEach(carousel => {
@@ -1177,7 +1106,7 @@
                     pause: 'hover'
                 });
 
-                // Prevenir propaga√ß√£o de eventos nos controles
+                // Prevenir propagaÁ„o de eventos nos controles
                 carousel.querySelectorAll('.carousel-control-prev, .carousel-control-next').forEach(control => {
                     control.addEventListener('click', (e) => {
                         e.stopPropagation();

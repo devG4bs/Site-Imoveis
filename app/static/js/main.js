@@ -77,7 +77,7 @@ function carregarImoveis(tipo = null) {
                         <div class="card imovel-card" data-id="${imovel.id}">
                             ${etiquetaHTML}
                             <div class="position-relative">
-                                <img src="${imovel.fotos && imovel.fotos.length > 0 ? `/uploads/imoveis/${imovel.id}/${imovel.fotos[0]}` : '/static/img/no-image.jpg'}" 
+                                <img src="${imovel.fotos && imovel.fotos.length > 0 ? `/uploads/imoveis/${imovel.id}/${imovel.fotos[0]}` : 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1496&q=80'}" 
                                      class="card-img-top" 
                                      alt="${imovel.titulo}"
                                      style="height: 200px; object-fit: cover;">

@@ -28,17 +28,25 @@ app = FastAPI(title="Sistema de Gestão de Imóveis")
 # Adicionar middleware para compressão
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
-# Adicionar middleware para UTF-8
+# Adicionar middleware UTF-8
 app.add_middleware(UTF8Middleware)
 
-# Configurar CORS
+# Configurar CORS com headers adequados
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Type", "Content-Disposition"]
 )
+
+# Configurar respostas padrão
+@app.middleware("http")
+async def add_default_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["Content-Type"] = "text/html; charset=utf-8"
+    return response
 
 # Definir diretórios de uploads
 UPLOAD_DIR = "uploads"

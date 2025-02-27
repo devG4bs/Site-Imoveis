@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freire e Oliveira Imóveis</title>
+    <title>Freire e Oliveira Im?veis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
@@ -21,17 +21,17 @@
             right: 10px;
             z-index: 1;
         }
-        /* Esconder botões de lixeira na página inicial */
+        /* Esconder bot˜es de lixeira na p˜gina inicial */
         .btn-outline-danger {
             display: none !important;
         }
-        /* Garantir que o botão Ver seja exibido */
+        /* Garantir que o bot˜o Ver seja exibido */
         .btn-outline-primary, .btn-primary {
             display: inline-block !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
-        /* Estilo específico para o botão Ver */
+        /* Estilo espec˜fico para o bot˜o Ver */
         .card-footer .btn-primary {
             display: block !important;
             width: auto !important;
@@ -50,7 +50,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="/">Freire e Oliveira Imóveis</a>
+            <a class="navbar-brand" href="/">Freire e Oliveira Imoveis</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -64,7 +64,7 @@
                             <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('todos')">Todos</a></li>
                             <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('venda')">Venda</a></li>
                             <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('aluguel')">Aluguel</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('leilao')">Leilão</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('leilao')">Leil?o</a></li>
                         </ul>
                     </li>
                     <li class="nav-item" id="loginItem">
@@ -89,11 +89,11 @@
 
     <div class="container mt-4">
         <div class="row" id="imoveisContainer">
-            <!-- Os imóveis serão carregados aqui dinamicamente -->
+            <!-- Os im˜veis ser˜o carregados aqui dinamicamente -->
         </div>
     </div>
 
-    <!-- Modal para visualizar detalhes do imóvel -->
+    <!-- Modal para visualizar detalhes do im˜vel -->
     <div class="modal fade" id="imovelModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -104,7 +104,7 @@
                 <div class="modal-body">
                     <div id="carouselImovel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="carouselImovelInner">
-                            <!-- As fotos serão carregadas aqui dinamicamente -->
+                            <!-- As fotos ser˜o carregadas aqui dinamicamente -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselImovel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -112,23 +112,23 @@
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselImovel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Próximo</span>
+                            <span class="visually-hidden">Pr˜ximo</span>
                         </button>
                     </div>
                     <div class="mt-3" id="imovelDetalhes">
-                        <!-- Detalhes do imóvel serão carregados aqui -->
+                        <!-- Detalhes do im˜vel ser˜o carregados aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para novo imóvel -->
+    <!-- Modal para novo im˜vel -->
     <div class="modal fade" id="novoImovelModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Novo Imóvel</h5>
+                    <h5 class="modal-title">Novo Im˜vel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -139,7 +139,7 @@
                                 <select class="form-select" name="tipo" required>
                                     <option value="venda">Venda</option>
                                     <option value="aluguel">Aluguel</option>
-                                    <option value="leilao">Leilão</option>
+                                    <option value="leilao">Leil˜o</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -152,11 +152,11 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Título</label>
+                            <label class="form-label">T˜tulo</label>
                             <input type="text" class="form-control" name="titulo" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Descrição</label>
+                            <label class="form-label">Descri˜˜o</label>
                             <textarea class="form-control" name="descricao" rows="3" required></textarea>
                         </div>
                         <div class="row mb-3">
@@ -165,7 +165,7 @@
                                 <input type="number" class="form-control" name="valor" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Área (m²)</label>
+                                <label class="form-label">˜rea (m˜)</label>
                                 <input type="number" class="form-control" name="area" required>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Endereço</label>
+                            <label class="form-label">Endere˜o</label>
                             <input type="text" class="form-control" name="endereco" required>
                         </div>
                         <div class="mb-3">
@@ -206,13 +206,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="fotosModalTitle">Fotos do Imóvel</h5>
+                    <h5 class="modal-title" id="fotosModalTitle">Fotos do Im˜vel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div id="carouselFotos" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="carouselFotosInner">
-                            <!-- As fotos serão carregadas aqui dinamicamente -->
+                            <!-- As fotos ser˜o carregadas aqui dinamicamente -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselFotos" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -220,11 +220,11 @@
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselFotos" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Próximo</span>
+                            <span class="visually-hidden">Pr˜ximo</span>
                         </button>
                     </div>
                     <div class="mt-3" id="imovelDetalhes">
-                        <!-- Detalhes do imóvel serão carregados aqui -->
+                        <!-- Detalhes do im˜vel ser˜o carregados aqui -->
                     </div>
                 </div>
             </div>
@@ -235,11 +235,11 @@
     <script src="/static/js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar autenticação
+            // Verificar autentica˜˜o
             const token = localStorage.getItem('token');
             const isAdmin = localStorage.getItem('isAdmin');
             
-            // Atualizar a interface com base na autenticação
+            // Atualizar a interface com base na autentica˜˜o
             if (token) {
                 document.getElementById('loginItem').classList.add('d-none');
                 document.getElementById('logoutItem').classList.remove('d-none');
@@ -249,7 +249,7 @@
                 }
             }
             
-            // Carregar imóveis
+            // Carregar im˜veis
             carregarImoveis();
             
             // Event listeners para menu
@@ -259,7 +259,7 @@
                 document.getElementById('menuUsuarios').classList.remove('active');
                 document.getElementById('imoveisContent').classList.remove('d-none');
                 document.getElementById('usuariosContent').classList.add('d-none');
-                document.getElementById('contentTitle').textContent = 'Gerenciar Imóveis';
+                document.getElementById('contentTitle').textContent = 'Gerenciar Im˜veis';
                 document.getElementById('btnNovoImovel').parentElement.classList.remove('d-none');
             });
             
@@ -269,7 +269,7 @@
                 document.getElementById('menuImoveis').classList.remove('active');
                 document.getElementById('imoveisContent').classList.add('d-none');
                 document.getElementById('usuariosContent').classList.remove('d-none');
-                document.getElementById('contentTitle').textContent = 'Gerenciar Usuários';
+                document.getElementById('contentTitle').textContent = 'Gerenciar Usu˜rios';
                 document.getElementById('btnNovoImovel').parentElement.classList.add('d-none');
                 carregarUsuarios();
             });
@@ -283,13 +283,13 @@
                 window.location.href = '/login';
             });
             
-            // Abrir modal de novo imóvel
+            // Abrir modal de novo im˜vel
             document.getElementById('btnNovoImovel')?.addEventListener('click', function() {
                 const modal = new bootstrap.Modal(document.getElementById('novoImovelModal'));
                 modal.show();
             });
             
-            // Salvar novo imóvel
+            // Salvar novo im˜vel
             document.getElementById('btnSalvarImovel')?.addEventListener('click', function() {
                 const form = document.getElementById('imovelForm');
                 const formData = new FormData(form);
@@ -304,9 +304,9 @@
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 401 || response.status === 403) {
-                            throw new Error('Você não tem permissão para realizar esta ação');
+                            throw new Error('Voc˜ n˜o tem permiss˜o para realizar esta a˜˜o');
                         }
-                        throw new Error('Erro ao salvar imóvel');
+                        throw new Error('Erro ao salvar im˜vel');
                     }
                     return response.json();
                 })
@@ -314,10 +314,10 @@
                     // Fechar modal
                     bootstrap.Modal.getInstance(document.getElementById('novoImovelModal')).hide();
                     
-                    // Recarregar imóveis
+                    // Recarregar im˜veis
                     carregarImoveis();
                     
-                    // Limpar formulário
+                    // Limpar formul˜rio
                     form.reset();
                 })
                 .catch(error => {
@@ -326,7 +326,7 @@
             });
         });
         
-        // Função para carregar imóveis
+        // Fun˜˜o para carregar im˜veis
         function carregarImoveis(tipo = null) {
             let url = '/imoveis/';
             if (tipo && tipo !== 'todos') {
@@ -366,7 +366,7 @@
                     switch (imovel.tipo) {
                         case 'venda': tipoLabel = 'Venda'; break;
                         case 'aluguel': tipoLabel = 'Aluguel'; break;
-                        case 'leilao': tipoLabel = 'Leilão'; break;
+                        case 'leilao': tipoLabel = 'Leil˜o'; break;
                     }
                     
                     // Criar carrossel de fotos
@@ -396,7 +396,7 @@
                                 </button>
                                 <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Próximo</span>
+                                    <span class="visually-hidden">Pr˜ximo</span>
                                 </button>`;
                         }
                         
@@ -419,7 +419,7 @@
                                     <strong>R$ ${imovel.valor.toLocaleString('pt-BR')}</strong>
                                 </p>
                                 <div class="d-flex justify-content-between">
-                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m²</span>
+                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m˜</span>
                                     <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
                                     <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
                                     <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
@@ -440,10 +440,10 @@
                     
                     container.appendChild(card);
                     
-                    // Adicionar evento de clique ao card após adicioná-lo ao DOM
+                    // Adicionar evento de clique ao card ap˜s adicion˜-lo ao DOM
                     const cardElement = card.querySelector('.imovel-card');
                     cardElement.addEventListener('click', function(e) {
-                        // Verificar se o clique não foi em um botão
+                        // Verificar se o clique n˜o foi em um bot˜o
                         if (!e.target.closest('button')) {
                             window.location.href = `/imoveis/${imovel.id}/detalhes`;
                         }
@@ -451,11 +451,11 @@
                 });
             })
             .catch(error => {
-                console.error('Erro ao carregar imóveis:', error);
+                console.error('Erro ao carregar im˜veis:', error);
             });
         }
         
-        // Função para carregar usuários
+        // Fun˜˜o para carregar usu˜rios
         function carregarUsuarios() {
             const token = localStorage.getItem('token');
             
@@ -466,7 +466,7 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Erro ao carregar usuários');
+                    throw new Error('Erro ao carregar usu˜rios');
                 }
                 return response.json();
             })
@@ -485,7 +485,7 @@
                         <td>${usuario.id}</td>
                         <td>${usuario.nome}</td>
                         <td>${usuario.email}</td>
-                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">Não</span>'}</td>
+                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">N˜o</span>'}</td>
                         <td>${dataFormatada}</td>
                     `;
                     
@@ -493,13 +493,13 @@
                 });
             })
             .catch(error => {
-                console.error('Erro ao carregar usuários:', error);
+                console.error('Erro ao carregar usu˜rios:', error);
             });
         }
         
-        // Função para excluir imóvel
+        // Fun˜˜o para excluir im˜vel
         function excluirImovel(id) {
-            if (confirm('Tem certeza que deseja excluir este imóvel?')) {
+            if (confirm('Tem certeza que deseja excluir este im˜vel?')) {
                 const token = localStorage.getItem('token');
                 
                 fetch(`/imoveis/${id}`, {
@@ -511,12 +511,12 @@
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 401 || response.status === 403) {
-                            throw new Error('Você não tem permissão para realizar esta ação');
+                            throw new Error('Voc˜ n˜o tem permiss˜o para realizar esta a˜˜o');
                         }
-                        throw new Error('Erro ao excluir imóvel');
+                        throw new Error('Erro ao excluir im˜vel');
                     }
                     
-                    // Recarregar imóveis
+                    // Recarregar im˜veis
                     carregarImoveis();
                 })
                 .catch(error => {
@@ -525,16 +525,16 @@
             }
         }
         
-        // Função para visualizar imóvel
+        // Fun˜˜o para visualizar im˜vel
         function visualizarImovel(id) {
             visualizarFotos(id);
         }
 
-        // Função para visualizar fotos
+        // Fun˜˜o para visualizar fotos
         function visualizarFotos(id) {
             const token = localStorage.getItem('token');
             
-            // Buscar o imóvel para obter as fotos
+            // Buscar o im˜vel para obter as fotos
             fetch(`/imoveis/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -542,7 +542,7 @@
             })
             .then(response => response.json())
             .then(imovel => {
-                // Atualizar o título do modal
+                // Atualizar o t˜tulo do modal
                 document.getElementById('fotosModalTitle').textContent = `${imovel.titulo}`;
                 
                 // Limpar o carousel
@@ -572,14 +572,14 @@
                     carouselInner.appendChild(item);
                 }
                 
-                // Adicionar detalhes do imóvel
+                // Adicionar detalhes do im˜vel
                 const detalhesContainer = document.getElementById('imovelDetalhes');
                 
                 let tipoLabel = '';
                 switch (imovel.tipo) {
                     case 'venda': tipoLabel = 'Venda'; break;
                     case 'aluguel': tipoLabel = 'Aluguel'; break;
-                    case 'leilao': tipoLabel = 'Leilão'; break;
+                    case 'leilao': tipoLabel = 'Leil˜o'; break;
                 }
                 
                 let etiquetaHTML = '';
@@ -609,7 +609,7 @@
                                 <div class="col-md-3 mb-2">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-ruler-combined me-2"></i>
-                                        <span>${imovel.area} m²</span>
+                                        <span>${imovel.area} m˜</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-2">
@@ -645,7 +645,7 @@
             });
         }
 
-        // Função para filtrar imóveis por tipo
+        // Fun˜˜o para filtrar im˜veis por tipo
         function filtrarImoveis(tipo) {
             carregarImoveis(tipo);
         }

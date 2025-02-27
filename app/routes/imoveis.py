@@ -161,6 +161,73 @@ def get_imovel(imovel_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Imóvel não encontrado")
     return imovel
 
+@router.put("/{imovel_id}", response_model=ImovelSchema)
+async def update_imovel(
+    imovel_id: int,
+    tipo: str = Form(...),
+    titulo: str = Form(...),
+    descricao: str = Form(...),
+    valor: float = Form(...),
+    etiqueta: str = Form(...),
+    endereco: str = Form(...),
+    area: float = Form(...),
+    quartos: int = Form(...),
+    banheiros: int = Form(...),
+    vagas: int = Form(...),
+    fotos: List[UploadFile] = File(None),
+    db: Session = Depends(get_db),
+    admin: Usuario = Depends(obter_usuario_admin_atual)
+):
+    try:
+        logger.info(f"Iniciando atualização do imóvel {imovel_id}")
+        
+        # Buscar o imóvel existente
+        imovel = db.query(Imovel).filter(Imovel.id == imovel_id).first()
+        if not imovel:
+            raise HTTPException(status_code=404, detail="Imóvel não encontrado")
+
+        # Atualizar os dados do imóvel
+        imovel.tipo = tipo
+        imovel.titulo = titulo
+        imovel.descricao = descricao
+        imovel.valor = float(valor)
+        imovel.etiqueta = etiqueta
+        imovel.endereco = endereco
+        imovel.area = float(area)
+        imovel.quartos = int(quartos)
+        imovel.banheiros = int(banheiros)
+        imovel.vagas = int(vagas)
+        
+        # Se novas fotos foram enviadas
+        if fotos and any(foto.filename for foto in fotos):
+            logger.info("Processando novas fotos")
+            
+            # Remover fotos antigas
+            upload_dir = f"uploads/imoveis/{imovel_id}"
+            if os.path.exists(upload_dir):
+                shutil.rmtree(upload_dir)
+            
+            # Salvar novas fotos
+            for foto in fotos:
+                if foto.filename:
+                    await save_image(imovel_id, foto)
+
+        # Salvar alterações no banco
+        db.commit()
+        db.refresh(imovel)
+        
+        logger.info(f"Imóvel {imovel_id} atualizado com sucesso")
+        return imovel
+        
+    except ValueError as e:
+        error_msg = f"Erro de validação: {str(e)}\n{traceback.format_exc()}"
+        logger.error(error_msg)
+        raise HTTPException(status_code=400, detail=error_msg)
+    except Exception as e:
+        error_msg = f"Erro inesperado: {str(e)}\n{traceback.format_exc()}"
+        logger.error(error_msg)
+        raise HTTPException(status_code=500, detail=error_msg)
+
 @router.delete("/{imovel_id}")
 def delete_imovel(
     imovel_id: int, 

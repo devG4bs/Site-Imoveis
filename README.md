@@ -21,7 +21,7 @@ Sistema local para gestão de imóveis com funcionalidades de cadastro, gerencia
 2. Crie um ambiente virtual:
 ```bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
+source venv/Scripts/activate  # Linux/Mac
 # ou
 .\venv\Scripts\activate  # Windows
 ```

@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ imovel.titulo }} - Sistema de Gestão de Imóveis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,6 +34,12 @@
             text-align: center;
             margin-right: 10px;
             color: #0d6efd;
+        }
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -110,6 +116,16 @@
                         <p class="card-text">{{ imovel.descricao }}</p>
                     </div>
                 </div>
+
+                <!-- Mapa do Google -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4 class="mb-0">Localização</h4>
+                    </div>
+                    <div class="card-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
             </div>
             
             <div class="col-md-4">
@@ -172,6 +188,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script do Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqraYI7Lo6deQdZL6qFgeT2HwVjpiXR4Y"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Verificar autenticação
@@ -240,6 +258,88 @@
                     alert('Erro ao excluir imóvel. Por favor, tente novamente.');
                 });
             };
+
+            // Inicializar o mapa
+            function initMap() {
+                const geocoder = new google.maps.Geocoder();
+                // Adiciona o país Brasil ao endereço para melhor precisão
+                const endereco = "{{ imovel.endereco }}, Brasil";
+                
+                geocoder.geocode({ 
+                    address: endereco,
+                    region: 'BR' // Define a região como Brasil
+                }, function(results, status) {
+                    if (status === 'OK') {
+                        const mapOptions = {
+                            zoom: 16, // Zoom mais aproximado
+                            center: results[0].geometry.location,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP,
+                            mapTypeControl: true,
+                            mapTypeControlOptions: {
+                                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                                position: google.maps.ControlPosition.TOP_RIGHT
+                            },
+                            zoomControl: true,
+                            zoomControlOptions: {
+                                position: google.maps.ControlPosition.RIGHT_CENTER
+                            },
+                            streetViewControl: true,
+                            streetViewControlOptions: {
+                                position: google.maps.ControlPosition.RIGHT_CENTER
+                            }
+                        };
+
+                        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+                        // Criar um ícone personalizado para o marcador
+                        const marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location,
+                            title: "{{ imovel.titulo }}",
+                            animation: google.maps.Animation.DROP, // Animação ao carregar
+                            icon: {
+                                url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                                scaledSize: new google.maps.Size(40, 40)
+                            }
+                        });
+
+                        // Adicionar InfoWindow com informações do imóvel
+                        const infowindow = new google.maps.InfoWindow({
+                            content: `
+                                <div style="max-width: 200px;">
+                                    <h5 style="margin: 0 0 5px 0;">{{ imovel.titulo }}</h5>
+                                    <p style="margin: 0 0 5px 0;">{{ imovel.endereco }}</p>
+                                    <p style="margin: 0;">R$ {{ "{:,.2f}".format(imovel.valor).replace(',', '.').replace('.', ',') }}</p>
+                                </div>
+                            `
+                        });
+
+                        // Abrir InfoWindow ao clicar no marcador
+                        marker.addListener('click', function() {
+                            infowindow.open(map, marker);
+                        });
+
+                        // Centralizar mapa ao clicar no endereço
+                        document.querySelector('.info-item .fa-map-marker-alt').parentElement.addEventListener('click', function() {
+                            map.setCenter(marker.getPosition());
+                            map.setZoom(17);
+                            infowindow.open(map, marker);
+                        });
+
+                    } else {
+                        console.error('Erro ao geocodificar endereço:', status);
+                        document.getElementById('map').innerHTML = `
+                            <div class="alert alert-warning text-center">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Não foi possível carregar o mapa. Verifique se o endereço está correto.
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            // Inicializar o mapa quando a página carregar
+            initMap();
         });
     </script>
 </body>

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, Request, UploadFile, File, Form
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from sqlalchemy.orm import Session
 from typing import List
 import shutil
@@ -11,6 +11,7 @@ import json
 import mimetypes
 import logging
 import traceback
+from fastapi.templating import Jinja2Templates
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -23,6 +24,7 @@ from ..models.usuario import Usuario
 from ..auth import obter_usuario_admin_atual
 
 router = APIRouter(prefix="/imoveis", tags=["imoveis"])
+templates = Jinja2Templates(directory="app/templates")
 
 def is_valid_image(filename: str) -> bool:
     # Lista de extensões permitidas
@@ -69,15 +71,52 @@ async def save_image(imovel_id: int, file: UploadFile) -> str:
         logger.error(error_msg)
         raise HTTPException(status_code=500, detail=error_msg)
 
+@router.get("/lista", response_class=HTMLResponse)
+async def listar_imoveis(
+    request: Request,
+    page: int = 1,
+    tipo: str = None,
+    tipo_imovel: str = None,
+    valor_min: float = None,
+    valor_max: float = None,
+    db: Session = Depends(get_db)
+):
+    per_page = 9
+    query = db.query(Imovel)
+    
+    if tipo:
+        query = query.filter(Imovel.tipo == tipo)
+    if tipo_imovel:
+        query = query.filter(Imovel.tipo_imovel == tipo_imovel)
+    if valor_min is not None:
+        query = query.filter(Imovel.valor >= valor_min)
+    if valor_max is not None:
+        query = query.filter(Imovel.valor <= valor_max)
+    
+    query = query.order_by(Imovel.created_at.desc())
+    total = query.count()
+    total_pages = (total + per_page - 1) // per_page
+    offset = (page - 1) * per_page
+    imoveis = query.offset(offset).limit(per_page).all()
+    
+    return templates.TemplateResponse("imoveis.html", {
+        "request": request,
+        "imoveis": imoveis,
+        "page": page,
+        "total_pages": total_pages
+    })
+
 @router.post("/", response_model=ImovelSchema)
 async def create_imovel(
     tipo: str = Form(...),
+    tipo_imovel: str = Form(...),
     titulo: str = Form(...),
     descricao: str = Form(...),
     valor: float = Form(...),
     etiqueta: str = Form(...),
     endereco: str = Form(...),
     area: float = Form(...),
+    comodos: int = Form(...),
     quartos: int = Form(...),
     banheiros: int = Form(...),
     vagas: int = Form(...),
@@ -95,12 +134,14 @@ async def create_imovel(
         # Criar objeto do imóvel
         imovel_data = {
             "tipo": tipo,
+            "tipo_imovel": tipo_imovel,
             "titulo": titulo,
             "descricao": descricao,
             "valor": float(valor),
             "etiqueta": etiqueta,
             "endereco": endereco,
             "area": float(area),
+            "comodos": int(comodos),
             "quartos": int(quartos),
             "banheiros": int(banheiros),
             "vagas": int(vagas)
@@ -171,6 +212,7 @@ async def update_imovel(
     etiqueta: str = Form(...),
     endereco: str = Form(...),
     area: float = Form(...),
+    comodos: int = Form(...),
     quartos: int = Form(...),
     banheiros: int = Form(...),
     vagas: int = Form(...),
@@ -194,6 +236,7 @@ async def update_imovel(
         imovel.etiqueta = etiqueta
         imovel.endereco = endereco
         imovel.area = float(area)
+        imovel.comodos = int(comodos)
         imovel.quartos = int(quartos)
         imovel.banheiros = int(banheiros)
         imovel.vagas = int(vagas)

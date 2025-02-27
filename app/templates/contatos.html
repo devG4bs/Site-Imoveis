@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freire e Oliveira Imóveis - Contatos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', path='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Freire e Oliveira Imóveis</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/imoveis/lista">Imóveis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sobre">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contatos">Contatos</a>
+                    </li>
+                    <li class="nav-item" id="loginItem">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="adminItem">
+                        <a class="nav-link" href="/admin">
+                            <i class="fas fa-user-shield"></i> Painel Admin
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="logoutItem">
+                        <a class="nav-link" href="#" id="btnLogout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <div class="container py-5">
+            <div class="row">
+                <!-- Informações de Contato -->
+                <div class="col-md-6 mb-4">
+                    <h2 class="mb-4">Entre em Contato</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Fale Conosco</h5>
+                            <p class="card-text">
+                                <i class="fas fa-phone me-2"></i> <a href="tel:+5500000000000" class="text-dark">(00) 00000-0000</a><br>
+                                <i class="fas fa-map-marker-alt me-2"></i> Endereço da Empresa, Nº XXX<br>
+                                Cidade - Estado, CEP: XXXXX-XXX
+                            </p>
+                            <div class="mt-4">
+                                <h5>Redes Sociais</h5>
+                                <div class="d-flex gap-3 mt-2">
+                                    <a href="#" class="text-dark"><i class="fab fa-facebook fa-2x"></i></a>
+                                    <a href="#" class="text-dark"><i class="fab fa-instagram fa-2x"></i></a>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="https://wa.me/5500000000000?text=Olá! Gostaria de mais informações sobre imóveis." target="_blank" class="btn btn-success btn-lg w-100">
+                                    <i class="fab fa-whatsapp me-2"></i>Falar no WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulário de Contato -->
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">Envie sua Mensagem</h5>
+                            <form id="contactForm">
+                                <div class="mb-3">
+                                    <label for="nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefone" class="form-label">Telefone</label>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mensagem" class="form-label">Mensagem</label>
+                                    <textarea class="form-control" id="mensagem" name="mensagem" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-lg w-100">
+                                    <i class="fab fa-whatsapp me-2"></i>Enviar Mensagem via WhatsApp
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Freire e Oliveira Imóveis</h5>
+                    <p>Seu parceiro na busca pelo imóvel ideal.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-light">Início</a></li>
+                        <li><a href="/imoveis/lista" class="text-light">Imóveis</a></li>
+                        <li><a href="/sobre" class="text-light">Sobre Nós</a></li>
+                        <li><a href="/contatos" class="text-light">Contatos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contato</h5>
+                    <p>
+                        <i class="fas fa-phone me-2"></i> (XX) XXXX-XXXX<br>
+                        <i class="fas fa-envelope me-2"></i> contato@freireoliveiraimoveis.com
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Freire e Oliveira Imóveis. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', path='js/main.js') }}"></script>
+    
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const nome = document.getElementById('nome').value;
+        const telefone = document.getElementById('telefone').value;
+        const mensagem = document.getElementById('mensagem').value;
+        
+        // Criar mensagem formatada para o WhatsApp
+        const mensagemWhatsApp = `Olá! Me chamo ${nome}${telefone ? `, meu telefone é ${telefone}` : ''}.
+
+${mensagem}`;
+        
+        // Codificar a mensagem para URL
+        const mensagemCodificada = encodeURIComponent(mensagemWhatsApp);
+        
+        // Redirecionar para o WhatsApp
+        window.open(`https://wa.me/5500000000000?text=${mensagemCodificada}`, '_blank');
+    });
+
+    // Verificar autenticação ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        const isAdmin = localStorage.getItem('isAdmin');
+        
+        if (token) {
+            document.getElementById('loginItem').classList.add('d-none');
+            document.getElementById('logoutItem').classList.remove('d-none');
+            
+            if (isAdmin === 'true') {
+                document.getElementById('adminItem').classList.remove('d-none');
+            }
+        }
+        
+        // Configurar evento de logout
+        document.getElementById('btnLogout')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('isAdmin');
+            window.location.href = '/login';
+        });
+    });
+    </script>
+</body>
+</html> 

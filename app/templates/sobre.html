@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freire e Oliveira Imóveis - Sobre Nós</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', path='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Freire e Oliveira Imóveis</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/sobre">Sobre Nós</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contatos">Contatos</a>
+                    </li>
+                    <li class="nav-item" id="loginItem">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="adminItem">
+                        <a class="nav-link" href="/admin">
+                            <i class="fas fa-user-shield"></i> Painel Admin
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="logoutItem">
+                        <a class="nav-link" href="#" id="btnLogout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <h1 class="display-4 mb-4">Sobre a Freire e Oliveira Imóveis</h1>
+                    <p class="lead">Há mais de uma década no mercado imobiliário, oferecendo as melhores oportunidades em imóveis com segurança e profissionalismo.</p>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h2 class="card-title mb-4">Nossa História</h2>
+                            <p class="card-text">Fundada em [ANO], a Freire e Oliveira Imóveis nasceu do sonho de transformar a experiência de comprar, vender e alugar imóveis em algo simples e seguro. Desde então, temos crescido constantemente, mantendo sempre nossos valores de transparência, ética e excelência no atendimento.</p>
+                            <p class="card-text">Ao longo dos anos, construímos uma sólida reputação no mercado imobiliário, baseada na confiança de nossos clientes e parceiros. Nossa equipe altamente qualificada está sempre pronta para oferecer o melhor atendimento e encontrar o imóvel ideal para cada cliente.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h2 class="card-title mb-4">Missão, Visão e Valores</h2>
+                            <h5 class="mb-3">Missão</h5>
+                            <p>Realizar sonhos através de negócios imobiliários seguros e transparentes, proporcionando a melhor experiência aos nossos clientes.</p>
+                            
+                            <h5 class="mb-3">Visão</h5>
+                            <p>Ser referência no mercado imobiliário, reconhecida pela excelência no atendimento e qualidade dos serviços prestados.</p>
+                            
+                            <h5 class="mb-3">Valores</h5>
+                            <ul>
+                                <li>Ética e transparência</li>
+                                <li>Compromisso com o cliente</li>
+                                <li>Profissionalismo</li>
+                                <li>Inovação</li>
+                                <li>Responsabilidade social</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="mb-4">Nossa Equipe</h2>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-user-tie fa-4x mb-3 text-primary"></i>
+                            <h5 class="card-title">João Freire</h5>
+                            <p class="card-text text-muted">Diretor Comercial</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-user-tie fa-4x mb-3 text-primary"></i>
+                            <h5 class="card-title">Maria Oliveira</h5>
+                            <p class="card-text text-muted">Diretora Administrativa</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-user-tie fa-4x mb-3 text-primary"></i>
+                            <h5 class="card-title">Carlos Silva</h5>
+                            <p class="card-text text-muted">Gerente de Vendas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Freire e Oliveira Imóveis</h5>
+                    <p>Seu parceiro na busca pelo imóvel ideal.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-light">Início</a></li>
+                        <li><a href="/sobre" class="text-light">Sobre Nós</a></li>
+                        <li><a href="/contatos" class="text-light">Contatos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contato</h5>
+                    <p>
+                        <i class="fas fa-phone me-2"></i> (XX) XXXX-XXXX<br>
+                        <i class="fas fa-envelope me-2"></i> contato@freireoliveiraimoveis.com
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 Freire e Oliveira Imóveis. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticação
+            const token = localStorage.getItem('token');
+            const isAdmin = localStorage.getItem('isAdmin');
+            
+            // Atualizar a interface com base na autenticação
+            if (token) {
+                document.getElementById('loginItem').classList.add('d-none');
+                document.getElementById('logoutItem').classList.remove('d-none');
+                
+                if (isAdmin === 'true') {
+                    document.getElementById('adminItem').classList.remove('d-none');
+                }
+            }
+            
+            // Logout
+            document.getElementById('btnLogout')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('isAdmin');
+                window.location.href = '/login';
+            });
+        });
+</body>
+</html> 

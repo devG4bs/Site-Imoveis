@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adicionar evento de clique global para os cards
     document.addEventListener('click', function(e) {
         const cardElement = e.target.closest('.imovel-card');
-        if (cardElement && !e.target.closest('button') && !e.target.closest('a')) {
+        if (cardElement && !e.target.closest('a')) {
             const imovelId = cardElement.getAttribute('data-id');
             if (imovelId) {
                 window.location.href = `/imoveis/${imovelId}/detalhes`;
@@ -25,78 +25,62 @@ function carregarImoveis(tipo = null) {
         .then(response => response.json())
         .then(imoveis => {
             const container = document.getElementById('imoveisContainer');
+            const indicatorsContainer = document.getElementById('carouselImoveisIndicators');
             container.innerHTML = '';
+            indicatorsContainer.innerHTML = '';
             
-            if (imoveis.length === 0) {
-                container.innerHTML = '<div class="col-12 text-center mt-5"><h3>Nenhum imóvel encontrado</h3></div>';
-                return;
+            // Agrupar imóveis em grupos de 3
+            const grupos = [];
+            for (let i = 0; i < imoveis.length; i += 3) {
+                grupos.push(imoveis.slice(i, i + 3));
             }
             
-            imoveis.forEach(imovel => {
-                const card = document.createElement('div');
-                card.className = 'col-md-4 mb-4';
+            grupos.forEach((grupo, index) => {
+                // Criar indicador
+                const indicator = document.createElement('button');
+                indicator.type = 'button';
+                indicator.setAttribute('data-bs-target', '#carouselImoveis');
+                indicator.setAttribute('data-bs-slide-to', index.toString());
+                if (index === 0) indicator.classList.add('active');
+                indicatorsContainer.appendChild(indicator);
+
+                // Criar slide
+                const carouselItem = document.createElement('div');
+                carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
                 
-                let etiquetaHTML = '';
-                if (imovel.etiqueta) {
-                    let etiquetaClass = '';
-                    switch (imovel.etiqueta) {
-                        case 'destaque': etiquetaClass = 'bg-warning'; break;
-                        case 'novo': etiquetaClass = 'bg-success'; break;
-                        case 'exclusivo': etiquetaClass = 'bg-danger'; break;
-                    }
-                    etiquetaHTML = `<span class="badge ${etiquetaClass} etiqueta">${imovel.etiqueta.toUpperCase()}</span>`;
-                }
+                const row = document.createElement('div');
+                row.className = 'row';
                 
-                let tipoLabel = '';
-                switch (imovel.tipo) {
-                    case 'venda': tipoLabel = 'Venda'; break;
-                    case 'aluguel': tipoLabel = 'Aluguel'; break;
-                    case 'leilao': tipoLabel = 'Leilão'; break;
-                }
-                
-                // Criar carrossel de fotos
-                let carouselId = `carousel-${imovel.id}`;
-                let fotosHTML = '';
-                
-                if (imovel.fotos && imovel.fotos.length > 0) {
-                    fotosHTML = `
-                        <div id="${carouselId}" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
-                            <div class="carousel-inner">`;
+                grupo.forEach(imovel => {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-4';
                     
-                    imovel.fotos.forEach((foto, index) => {
-                        fotosHTML += `
-                            <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                                <img src="/uploads/imoveis/${imovel.id}/${foto}" class="d-block w-100" alt="${imovel.titulo}" style="height: 200px; object-fit: cover;">
-                            </div>`;
-                    });
-                    
-                    fotosHTML += `
-                            </div>`;
-                    
-                    if (imovel.fotos.length > 1) {
-                        fotosHTML += `
-                            <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev" onclick="event.stopPropagation();">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Anterior</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next" onclick="event.stopPropagation();">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Próximo</span>
-                            </button>`;
+                    let etiquetaHTML = '';
+                    if (imovel.etiqueta) {
+                        let etiquetaClass = '';
+                        switch (imovel.etiqueta) {
+                            case 'destaque': etiquetaClass = 'bg-warning'; break;
+                            case 'novo': etiquetaClass = 'bg-success'; break;
+                            case 'exclusivo': etiquetaClass = 'bg-danger'; break;
+                        }
+                        etiquetaHTML = `<span class="badge ${etiquetaClass} etiqueta">${imovel.etiqueta.toUpperCase()}</span>`;
                     }
                     
-                    fotosHTML += `</div>`;
-                } else {
-                    fotosHTML = `<div class="text-center p-5 bg-light">Sem fotos</div>`;
-                }
-                
-                // Criar o card como um link <a> para garantir o redirecionamento
-                card.innerHTML = `
-                    <a href="/imoveis/${imovel.id}/detalhes" class="text-decoration-none text-dark">
-                        <div class="card imovel-card" style="cursor: pointer;" data-id="${imovel.id}">
+                    let tipoLabel = '';
+                    switch (imovel.tipo) {
+                        case 'venda': tipoLabel = 'Venda'; break;
+                        case 'aluguel': tipoLabel = 'Aluguel'; break;
+                        case 'leilao': tipoLabel = 'Leilão'; break;
+                    }
+                    
+                    col.innerHTML = `
+                        <div class="card imovel-card" data-id="${imovel.id}">
                             ${etiquetaHTML}
                             <div class="position-relative">
-                                ${fotosHTML}
+                                <img src="${imovel.fotos && imovel.fotos.length > 0 ? `/uploads/imoveis/${imovel.id}/${imovel.fotos[0]}` : '/static/img/no-image.jpg'}" 
+                                     class="card-img-top" 
+                                     alt="${imovel.titulo}"
+                                     style="height: 200px; object-fit: cover;">
                                 <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">${tipoLabel}</span>
                             </div>
                             <div class="card-body">
@@ -112,30 +96,60 @@ function carregarImoveis(tipo = null) {
                                     <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
                                 </div>
                             </div>
+                            <div class="card-footer bg-transparent border-top-0">
+                                <a href="/imoveis/${imovel.id}/detalhes" class="btn btn-sm btn-outline-primary w-100">
+                                    <i class="fas fa-eye"></i> Ver Detalhes
+                                </a>
+                            </div>
                         </div>
-                    </a>
-                    <div class="card-footer d-flex justify-content-between mt-n2">
-                        <a href="/imoveis/${imovel.id}/detalhes" class="btn btn-sm btn-primary">
-                            <i class="fas fa-eye"></i> Ver Detalhes
-                        </a>
-                        <a href="/imoveis/${imovel.id}/pdf" target="_blank" class="btn btn-sm btn-outline-secondary">
-                            <i class="fas fa-file-pdf"></i> PDF
-                        </a>
-                        <button class="btn btn-sm btn-outline-danger" onclick="excluirImovel(${imovel.id})">
-                            <i class="fas fa-trash"></i> Excluir
-                        </button>
-                    </div>
-                `;
+                    `;
+                    
+                    row.appendChild(col);
+                });
                 
-                container.appendChild(card);
-                
-                // Inicializar o carrossel após adicionar ao DOM
-                if (imovel.fotos && imovel.fotos.length > 0) {
-                    const carousel = new bootstrap.Carousel(document.getElementById(carouselId), {
-                        interval: false,
-                        wrap: true,
-                        touch: false
-                    });
+                carouselItem.appendChild(row);
+                container.appendChild(carouselItem);
+            });
+
+            // Inicializar o carrossel
+            const carouselElement = document.getElementById('carouselImoveis');
+            const carousel = new bootstrap.Carousel(carouselElement, {
+                interval: 5000,
+                wrap: true,
+                touch: true,
+                keyboard: true,
+                pause: 'hover'
+            });
+
+            // Adicionar eventos de clique aos controles
+            const prevButton = carouselElement.querySelector('.carousel-control-prev');
+            const nextButton = carouselElement.querySelector('.carousel-control-next');
+
+            prevButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                carousel.prev();
+            });
+
+            nextButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                carousel.next();
+            });
+
+            // Adicionar eventos de clique aos indicadores
+            const carouselIndicators = carouselElement.querySelectorAll('.carousel-indicators button');
+            carouselIndicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    carousel.to(index);
+                });
+            });
+
+            // Adicionar eventos de teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    carousel.prev();
+                } else if (e.key === 'ArrowRight') {
+                    carousel.next();
                 }
             });
         })

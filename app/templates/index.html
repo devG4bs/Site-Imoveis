@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freire e Oliveira Im?veis</title>
+    <title>Freire e Oliveira Imoveis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
@@ -21,17 +21,17 @@
             right: 10px;
             z-index: 1;
         }
-        /* Esconder botòes de lixeira na pògina inicial */
+        /* Esconder bot√µes de lixeira na p√°gina inicial */
         .btn-outline-danger {
             display: none !important;
         }
-        /* Garantir que o botòo Ver seja exibido */
+        /* Garantir que o bot√£o Ver seja exibido */
         .btn-outline-primary, .btn-primary {
             display: inline-block !important;
             visibility: visible !important;
             opacity: 1 !important;
         }
-        /* Estilo especòfico para o botòo Ver */
+        /* Estilo espec√≠fico para o bot√£o Ver */
         .card-footer .btn-primary {
             display: block !important;
             width: auto !important;
@@ -45,10 +45,269 @@
             height: 400px;
             object-fit: contain;
         }
+
+        /* Novos estilos */
+        .navbar {
+            background: #1a1a1a !important; /* Fundo s√≥lido escuro */
+            position: relative; /* Mudando para relative ao inv√©s de absolute */
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+        
+        .nav-link {
+            color: white !important;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+        }
+
+        .nav-link:hover {
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .navbar .dropdown-menu {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+        }
+
+        .navbar .dropdown-item {
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            margin: 0.2rem 0;
+        }
+
+        .navbar .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 3px;
+        }
+
+        .navbar-toggler {
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
+        .section-services {
+            position: relative;
+            margin-top: 0; /* Removendo margem negativa */
+        }
+
+        .section-services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3); /* Reduzindo a opacidade do overlay */
+            z-index: 1;
+        }
+
+        .section-services .carousel-item {
+            height: 100vh;
+        }
+
+        .section-services .carousel-item img {
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        .section-services .carousel-caption,
+        .section-services .position-absolute {
+            z-index: 2;
+        }
+
+        .search-section {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -60px;
+            z-index: 100;
+        }
+
+        .search-section .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-text {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-text p {
+            font-size: 1.5rem;
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilos para o carrossel de im√≥veis */
+        #carouselImoveis {
+            padding: 0 60px;
+            margin-bottom: 40px;
+        }
+
+        /* Controles personalizados */
+        .custom-control {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-control:hover {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .carousel-control-prev.custom-control {
+            left: 0;
+        }
+
+        .carousel-control-next.custom-control {
+            right: 0;
+        }
+
+        /* Indicadores personalizados */
+        .custom-indicators {
+            position: relative;
+            bottom: 0;
+            margin: 20px 0 0;
+        }
+
+        .custom-indicators [data-bs-target] {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            border: none;
+            margin: 0 6px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .custom-indicators .active {
+            background-color: #000;
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            #carouselImoveis {
+                padding: 0 40px;
+            }
+
+            .custom-control {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            padding: 0 40px;
+        }
+
+        .carousel-wrapper {
+            transition: transform 0.5s ease;
+            display: flex;
+            gap: 20px;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-control:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev-button {
+            left: 0;
+        }
+
+        .next-button {
+            right: 0;
+        }
+
+        .imovel-slide {
+            flex: 0 0 calc(33.333% - 14px);
+            max-width: calc(33.333% - 14px);
+            transition: transform 0.3s ease;
+        }
+
+        .imovel-card {
+            margin: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: 100%;
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-container {
+                padding: 0 30px;
+            }
+            
+            .imovel-slide {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="/">Freire e Oliveira Imoveis</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -56,6 +315,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">In√≠cio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/imoveis/lista" data-link="imoveis">Im√≥veis</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="filtroTipo" role="button" data-bs-toggle="dropdown">
                             Filtrar por Tipo
@@ -64,8 +329,14 @@
                             <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('todos')">Todos</a></li>
                             <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('venda')">Venda</a></li>
                             <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('aluguel')">Aluguel</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('leilao')">Leil?o</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('leilao')">Leil√£o</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sobre">Sobre N√≥s</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contatos">Contatos</a>
                     </li>
                     <li class="nav-item" id="loginItem">
                         <a class="nav-link" href="/login">
@@ -87,13 +358,131 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <div class="row" id="imoveisContainer">
-            <!-- Os imòveis seròo carregados aqui dinamicamente -->
+    <div class="container-fluid p-0">
+        <!-- Primeira Div - Carrossel de Servi√ßos -->
+        <div class="section-services mb-5">
+            <div id="carouselServices" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="hover" data-bs-wrap="true" data-bs-keyboard="true" data-bs-touch="true">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="position-relative">
+                            <img src="/static/img/service1.jpg" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="Servi√ßo 1">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center text-white hero-text">
+                                <h1>Encontre o Im√≥vel dos Seus Sonhos</h1>
+                                <p>Oferecemos o melhor servi√ßo de compra, venda e aluguel de im√≥veis</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="position-relative">
+                            <img src="/static/img/service2.jpg" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="Servi√ßo 2">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center text-white hero-text">
+                                <h1>Assessoria Completa</h1>
+                                <p>Acompanhamento em todas as etapas da negocia√ß√£o</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="position-relative">
+                            <img src="/static/img/service3.jpg" class="d-block w-100" style="height: 600px; object-fit: cover;" alt="Servi√ßo 3">
+                            <div class="position-absolute top-50 start-50 translate-middle text-center text-white hero-text">
+                                <h1>Avalia√ß√£o Profissional</h1>
+                                <p>Avalia√ß√£o precisa do seu im√≥vel com profissionais especializados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselServices" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselServices" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Se√ß√£o de Pesquisa -->
+        <div class="search-section">
+            <div class="container">
+                <div class="card shadow-lg">
+                    <div class="card-body p-4">
+                        <form class="row g-3 align-items-end">
+                            <div class="col-md-3">
+                                <label class="form-label">Rua/Cidade</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                    <input type="text" class="form-control" placeholder="Digite a localiza√ß√£o">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Tipo de Im√≥vel</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                    <select class="form-select">
+                                        <option value="">Selecione</option>
+                                        <option value="casa">Casa</option>
+                                        <option value="apartamento">Apartamento</option>
+                                        <option value="terreno">Terreno</option>
+                                        <option value="comercial">Comercial</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Pre√ßo M√°ximo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">R$</span>
+                                    <input type="number" class="form-control" placeholder="Valor m√°ximo">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary w-100" style="height: 40px;">
+                                    <i class="fas fa-search me-2"></i>Buscar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda Div - Carrossel de Im√≥veis -->
+        <div class="section-properties bg-light py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Im√≥veis em Destaque</h2>
+                <div class="position-relative">
+                    <div class="carousel-container overflow-hidden">
+                        <div class="carousel-wrapper d-flex transition-transform" id="imoveisContainer">
+                            <!-- Os im√≥veis ser√£o carregados aqui dinamicamente -->
+                        </div>
+                    </div>
+                    <button class="carousel-control prev-button" onclick="deslizarCarrossel('prev')">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-control next-button" onclick="deslizarCarrossel('next')">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terceira Div - Corretor -->
+        <div class="section-broker py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="mb-4">Conhe√ßa Nosso Corretor</h2>
+                        <p class="fs-5">Com mais de 10 anos de experi√™ncia no mercado imobili√°rio, nosso corretor est√° pronto para ajudar voc√™ a encontrar o im√≥vel perfeito ou a realizar a melhor negocia√ß√£o para seu im√≥vel.</p>
+                        <p class="fs-5">Oferecemos um atendimento personalizado e profissional, sempre focado em atender √†s suas necessidades espec√≠ficas.</p>
+                        <a href="/contatos" class="btn btn-primary btn-lg mt-3">Entre em Contato</a>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img src="/static/img/corretor.jpg" class="img-fluid rounded-circle" alt="Corretor" style="max-width: 400px;">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Modal para visualizar detalhes do imòvel -->
+    <!-- Modal para visualizar detalhes do im√≥vel -->
     <div class="modal fade" id="imovelModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -104,7 +493,7 @@
                 <div class="modal-body">
                     <div id="carouselImovel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="carouselImovelInner">
-                            <!-- As fotos seròo carregadas aqui dinamicamente -->
+                            <!-- As fotos ser√£o carregadas aqui dinamicamente -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselImovel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -112,23 +501,23 @@
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselImovel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Pròximo</span>
+                            <span class="visually-hidden">Pr√≥ximo</span>
                         </button>
                     </div>
                     <div class="mt-3" id="imovelDetalhes">
-                        <!-- Detalhes do imòvel seròo carregados aqui -->
+                        <!-- Detalhes do im√≥vel ser√£o carregados aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para novo imòvel -->
+    <!-- Modal para novo im√≥vel -->
     <div class="modal fade" id="novoImovelModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Novo Imòvel</h5>
+                    <h5 class="modal-title">Novo Im√≥vel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -139,7 +528,7 @@
                                 <select class="form-select" name="tipo" required>
                                     <option value="venda">Venda</option>
                                     <option value="aluguel">Aluguel</option>
-                                    <option value="leilao">Leilòo</option>
+                                    <option value="leilao">Leil√£o</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -152,11 +541,11 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Tòtulo</label>
+                            <label class="form-label">T√≠tulo</label>
                             <input type="text" class="form-control" name="titulo" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Descriòòo</label>
+                            <label class="form-label">Descri√ß√£o</label>
                             <textarea class="form-control" name="descricao" rows="3" required></textarea>
                         </div>
                         <div class="row mb-3">
@@ -165,7 +554,7 @@
                                 <input type="number" class="form-control" name="valor" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">òrea (mò)</label>
+                                <label class="form-label">√Årea (m¬≤)</label>
                                 <input type="number" class="form-control" name="area" required>
                             </div>
                         </div>
@@ -184,7 +573,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Endereòo</label>
+                            <label class="form-label">Endere√ßo</label>
                             <input type="text" class="form-control" name="endereco" required>
                         </div>
                         <div class="mb-3">
@@ -206,13 +595,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="fotosModalTitle">Fotos do Imòvel</h5>
+                    <h5 class="modal-title" id="fotosModalTitle">Fotos do Im√≥vel</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div id="carouselFotos" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="carouselFotosInner">
-                            <!-- As fotos seròo carregadas aqui dinamicamente -->
+                            <!-- As fotos ser√£o carregadas aqui dinamicamente -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselFotos" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -220,26 +609,24 @@
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#carouselFotos" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Pròximo</span>
+                            <span class="visually-hidden">Pr√≥ximo</span>
                         </button>
                     </div>
                     <div class="mt-3" id="imovelDetalhes">
-                        <!-- Detalhes do imòvel seròo carregados aqui -->
+                        <!-- Detalhes do im√≥vel ser√£o carregados aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar autenticaòòo
+            // Verificar autentica√ß√£o
             const token = localStorage.getItem('token');
             const isAdmin = localStorage.getItem('isAdmin');
             
-            // Atualizar a interface com base na autenticaòòo
+            // Atualizar a interface com base na autentica√ß√£o
             if (token) {
                 document.getElementById('loginItem').classList.add('d-none');
                 document.getElementById('logoutItem').classList.remove('d-none');
@@ -248,9 +635,135 @@
                     document.getElementById('adminItem').classList.remove('d-none');
                 }
             }
+
+            // Vari√°veis globais para o carrossel
+            let imoveisData = [];
+            let posicaoAtual = 0;
             
-            // Carregar imòveis
-            carregarImoveis();
+            // Sistema de filtros melhorado
+            window.filtrarImoveis = function(tipo) {
+                const url = tipo === 'todos' ? '/imoveis' : `/imoveis?tipo=${tipo}`;
+                
+                fetch(url)
+                    .then(response => response.json())
+                    .then(imoveis => {
+                        imoveisData = imoveis;
+                        renderizarImoveis();
+                    })
+                    .catch(error => {
+                        console.error('Erro ao carregar im√≥veis:', error);
+                        alert('Erro ao carregar im√≥veis. Por favor, tente novamente.');
+                    });
+            };
+
+            // Fun√ß√£o para renderizar os im√≥veis
+            function renderizarImoveis() {
+                const container = document.getElementById('imoveisContainer');
+                if (!container) return;
+
+                container.innerHTML = '';
+
+                if (imoveisData.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <h3>Nenhum im√≥vel encontrado</h3>
+                        </div>
+                    `;
+                    return;
+                }
+
+                imoveisData.forEach(imovel => {
+                    const slide = document.createElement('div');
+                    slide.className = 'imovel-slide';
+
+                    const etiquetaHTML = imovel.etiqueta ? `
+                        <span class="badge ${getBadgeClass(imovel.etiqueta)} etiqueta">
+                            ${imovel.etiqueta.toUpperCase()}
+                        </span>
+                    ` : '';
+
+                    slide.innerHTML = `
+                        <div class="card imovel-card h-100" data-id="${imovel.id}">
+                            ${etiquetaHTML}
+                            <div class="position-relative">
+                                <img src="${imovel.fotos && imovel.fotos.length > 0 ? 
+                                    `/uploads/imoveis/${imovel.id}/${imovel.fotos[0]}` : 
+                                    '/static/img/no-image.jpg'}" 
+                                    class="card-img-top" 
+                                    alt="${imovel.titulo}"
+                                    style="height: 200px; object-fit: cover;">
+                                <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">
+                                    ${formatarTipo(imovel.tipo)}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${imovel.titulo}</h5>
+                                <p class="card-text text-truncate">${imovel.descricao}</p>
+                                <p class="card-text">
+                                    <strong>R$ ${formatarValor(imovel.valor)}</strong>
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m¬≤</span>
+                                    <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
+                                    <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
+                                    <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent border-top-0">
+                                <button class="btn btn-primary w-100" onclick="visualizarImovel(${imovel.id})">
+                                    <i class="fas fa-eye"></i> Ver Detalhes
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    container.appendChild(slide);
+                });
+            }
+
+            // Fun√ß√£o para deslizar o carrossel
+            window.deslizarCarrossel = function(direcao) {
+                const container = document.getElementById('imoveisContainer');
+                const totalSlides = imoveisData.length;
+                
+                if (direcao === 'next') {
+                    posicaoAtual = (posicaoAtual + 3) >= totalSlides ? 0 : posicaoAtual + 3;
+                } else {
+                    posicaoAtual = (posicaoAtual - 3) < 0 ? Math.max(0, totalSlides - 3) : posicaoAtual - 3;
+                }
+
+                const deslocamento = -(posicaoAtual * (100/3));
+                container.style.transform = `translateX(${deslocamento}%)`;
+            };
+
+            // Fun√ß√µes auxiliares
+            function formatarTipo(tipo) {
+                const tipos = {
+                    'venda': 'Venda',
+                    'aluguel': 'Aluguel',
+                    'leilao': 'Leil√£o'
+                };
+                return tipos[tipo] || tipo;
+            }
+            
+            function formatarValor(valor) {
+                return valor.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+            
+            function getBadgeClass(etiqueta) {
+                const classes = {
+                    'destaque': 'bg-warning',
+                    'novo': 'bg-success',
+                    'exclusivo': 'bg-danger'
+                };
+                return classes[etiqueta.toLowerCase()] || 'bg-secondary';
+            }
+
+            // Carregar todos os im√≥veis inicialmente
+            filtrarImoveis('todos');
             
             // Event listeners para menu
             document.getElementById('menuImoveis')?.addEventListener('click', function(e) {
@@ -259,7 +772,7 @@
                 document.getElementById('menuUsuarios').classList.remove('active');
                 document.getElementById('imoveisContent').classList.remove('d-none');
                 document.getElementById('usuariosContent').classList.add('d-none');
-                document.getElementById('contentTitle').textContent = 'Gerenciar Imòveis';
+                document.getElementById('contentTitle').textContent = 'Gerenciar Im√≥veis';
                 document.getElementById('btnNovoImovel').parentElement.classList.remove('d-none');
             });
             
@@ -269,7 +782,7 @@
                 document.getElementById('menuImoveis').classList.remove('active');
                 document.getElementById('imoveisContent').classList.add('d-none');
                 document.getElementById('usuariosContent').classList.remove('d-none');
-                document.getElementById('contentTitle').textContent = 'Gerenciar Usuòrios';
+                document.getElementById('contentTitle').textContent = 'Gerenciar Usu√°rios';
                 document.getElementById('btnNovoImovel').parentElement.classList.add('d-none');
                 carregarUsuarios();
             });
@@ -283,13 +796,13 @@
                 window.location.href = '/login';
             });
             
-            // Abrir modal de novo imòvel
+            // Abrir modal de novo im√≥vel
             document.getElementById('btnNovoImovel')?.addEventListener('click', function() {
                 const modal = new bootstrap.Modal(document.getElementById('novoImovelModal'));
                 modal.show();
             });
             
-            // Salvar novo imòvel
+            // Salvar novo im√≥vel
             document.getElementById('btnSalvarImovel')?.addEventListener('click', function() {
                 const form = document.getElementById('imovelForm');
                 const formData = new FormData(form);
@@ -304,9 +817,9 @@
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 401 || response.status === 403) {
-                            throw new Error('Vocò nòo tem permissòo para realizar esta aòòo');
+                            throw new Error('Voc√™ n√£o tem permiss√£o para realizar esta a√ß√£o');
                         }
-                        throw new Error('Erro ao salvar imòvel');
+                        throw new Error('Erro ao salvar im√≥vel');
                     }
                     return response.json();
                 })
@@ -314,19 +827,28 @@
                     // Fechar modal
                     bootstrap.Modal.getInstance(document.getElementById('novoImovelModal')).hide();
                     
-                    // Recarregar imòveis
-                    carregarImoveis();
+                    // Recarregar im√≥veis
+                    filtrarImoveis('todos');
                     
-                    // Limpar formulòrio
+                    // Limpar formul√°rio
                     form.reset();
                 })
                 .catch(error => {
                     alert(error.message);
                 });
             });
+
+            // Adicionar manipulador de eventos para links de navega√ß√£o
+            document.querySelectorAll('[data-link]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = this.getAttribute('href');
+                    window.location.href = url;
+                });
+            });
         });
         
-        // Funòòo para carregar imòveis
+        // Fun√ß√£o para carregar im√≥veis
         function carregarImoveis(tipo = null) {
             let url = '/imoveis/';
             if (tipo && tipo !== 'todos') {
@@ -345,117 +867,114 @@
             .then(response => response.json())
             .then(imoveis => {
                 const container = document.getElementById('imoveisContainer');
+                const indicators = document.getElementById('carouselImoveisIndicators');
                 container.innerHTML = '';
+                indicators.innerHTML = '';
                 
-                imoveis.forEach(imovel => {
-                    const card = document.createElement('div');
-                    card.className = 'col-md-4 mb-4';
+                // Agrupar im√≥veis em grupos de 3
+                const grupos = [];
+                for (let i = 0; i < imoveis.length; i += 3) {
+                    grupos.push(imoveis.slice(i, i + 3));
+                }
+                
+                grupos.forEach((grupo, index) => {
+                    // Criar indicador
+                    const indicator = document.createElement('button');
+                    indicator.type = 'button';
+                    indicator.setAttribute('data-bs-target', '#carouselImoveis');
+                    indicator.setAttribute('data-bs-slide-to', index.toString());
+                    if (index === 0) indicator.classList.add('active');
+                    indicators.appendChild(indicator);
+
+                    // Criar slide
+                    const carouselItem = document.createElement('div');
+                    carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
                     
-                    let etiquetaHTML = '';
-                    if (imovel.etiqueta) {
-                        let etiquetaClass = '';
-                        switch (imovel.etiqueta) {
-                            case 'destaque': etiquetaClass = 'bg-warning'; break;
-                            case 'novo': etiquetaClass = 'bg-success'; break;
-                            case 'exclusivo': etiquetaClass = 'bg-danger'; break;
-                        }
-                        etiquetaHTML = `<span class="badge ${etiquetaClass} etiqueta">${imovel.etiqueta.toUpperCase()}</span>`;
-                    }
+                    const row = document.createElement('div');
+                    row.className = 'row g-4';
                     
-                    let tipoLabel = '';
-                    switch (imovel.tipo) {
-                        case 'venda': tipoLabel = 'Venda'; break;
-                        case 'aluguel': tipoLabel = 'Aluguel'; break;
-                        case 'leilao': tipoLabel = 'Leilòo'; break;
-                    }
-                    
-                    // Criar carrossel de fotos
-                    let carouselId = `carousel-${imovel.id}`;
-                    let fotosHTML = '';
-                    
-                    if (imovel.fotos && imovel.fotos.length > 0) {
-                        fotosHTML = `
-                            <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">`;
+                    grupo.forEach(imovel => {
+                        const col = document.createElement('div');
+                        col.className = 'col-md-4';
                         
-                        imovel.fotos.forEach((foto, index) => {
-                            fotosHTML += `
-                                <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                                    <img src="/uploads/imoveis/${imovel.id}/${foto}" class="d-block w-100" alt="${imovel.titulo}" style="height: 200px; object-fit: cover;">
-                                </div>`;
-                        });
-                        
-                        fotosHTML += `
-                                </div>`;
-                        
-                        if (imovel.fotos.length > 1) {
-                            fotosHTML += `
-                                <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Anterior</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Pròximo</span>
-                                </button>`;
+                        let etiquetaHTML = '';
+                        if (imovel.etiqueta) {
+                            let etiquetaClass = '';
+                            switch (imovel.etiqueta) {
+                                case 'destaque': etiquetaClass = 'bg-warning'; break;
+                                case 'novo': etiquetaClass = 'bg-success'; break;
+                                case 'exclusivo': etiquetaClass = 'bg-danger'; break;
+                            }
+                            etiquetaHTML = `<span class="badge ${etiquetaClass} etiqueta">${imovel.etiqueta.toUpperCase()}</span>`;
                         }
                         
-                        fotosHTML += `</div>`;
-                    } else {
-                        fotosHTML = `<div class="text-center p-5 bg-light">Sem fotos</div>`;
-                    }
-                    
-                    card.innerHTML = `
-                        <div class="card imovel-card" style="cursor: pointer;">
-                            ${etiquetaHTML}
-                            <div class="position-relative">
-                                ${fotosHTML}
-                                <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">${tipoLabel}</span>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">${imovel.titulo}</h5>
-                                <p class="card-text text-truncate">${imovel.descricao}</p>
-                                <p class="card-text">
-                                    <strong>R$ ${imovel.valor.toLocaleString('pt-BR')}</strong>
-                                </p>
-                                <div class="d-flex justify-content-between">
-                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}mò</span>
-                                    <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
-                                    <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
-                                    <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
+                        let tipoLabel = '';
+                        switch (imovel.tipo) {
+                            case 'venda': tipoLabel = 'Venda'; break;
+                            case 'aluguel': tipoLabel = 'Aluguel'; break;
+                            case 'leilao': tipoLabel = 'Leil√£o'; break;
+                        }
+                        
+                        col.innerHTML = `
+                            <div class="card imovel-card h-100" data-id="${imovel.id}" style="cursor: pointer;">
+                                ${etiquetaHTML}
+                                <div class="position-relative">
+                                    <img src="${imovel.fotos && imovel.fotos.length > 0 ? `/uploads/imoveis/${imovel.id}/${imovel.fotos[0]}` : '/static/img/no-image.jpg'}" 
+                                         class="card-img-top" 
+                                         alt="${imovel.titulo}"
+                                         style="height: 200px; object-fit: cover;">
+                                    <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">${tipoLabel}</span>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">${imovel.titulo}</h5>
+                                    <p class="card-text text-truncate">${imovel.descricao}</p>
+                                    <p class="card-text">
+                                        <strong>R$ ${imovel.valor.toLocaleString('pt-BR')}</strong>
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m¬≤</span>
+                                        <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
+                                        <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
+                                        <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-top-0">
+                                    <a href="/imoveis/${imovel.id}/detalhes" class="btn btn-sm btn-outline-primary w-100">
+                                        <i class="fas fa-eye"></i> Ver Detalhes
+                                    </a>
                                 </div>
                             </div>
-                            <div class="card-footer d-flex justify-content-between">
-                                <button class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation(); visualizarImovel(${imovel.id})">
-                                    <i class="fas fa-eye"></i> Ver
-                                </button>
-                                ${localStorage.getItem('isAdmin') === 'true' ? `
-                                <button class="btn btn-sm btn-outline-danger" onclick="event.stopPropagation(); excluirImovel(${imovel.id})">
-                                    <i class="fas fa-trash"></i> Excluir
-                                </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    `;
-                    
-                    container.appendChild(card);
-                    
-                    // Adicionar evento de clique ao card apòs adicionò-lo ao DOM
-                    const cardElement = card.querySelector('.imovel-card');
-                    cardElement.addEventListener('click', function(e) {
-                        // Verificar se o clique nòo foi em um botòo
-                        if (!e.target.closest('button')) {
-                            window.location.href = `/imoveis/${imovel.id}/detalhes`;
-                        }
+                        `;
+                        
+                        row.appendChild(col);
+                        
+                        // Adicionar evento de clique ao card
+                        const cardElement = col.querySelector('.imovel-card');
+                        cardElement.style.cursor = 'pointer';
+                        cardElement.addEventListener('click', function(e) {
+                            if (!e.target.closest('.btn-outline-primary')) {
+                                visualizarImovel(imovel.id);
+                            }
+                        });
                     });
+                    
+                    carouselItem.appendChild(row);
+                    container.appendChild(carouselItem);
+                });
+
+                // Inicializar o carrossel ap√≥s carregar os itens
+                const carousel = new bootstrap.Carousel(document.getElementById('carouselImoveis'), {
+                    interval: 8000, // Tempo entre transi√ß√µes autom√°ticas (8 segundos)
+                    wrap: true,
+                    pause: 'hover' // Pausa quando o mouse est√° sobre o carrossel
                 });
             })
             .catch(error => {
-                console.error('Erro ao carregar imòveis:', error);
+                console.error('Erro ao carregar im√≥veis:', error);
             });
         }
         
-        // Funòòo para carregar usuòrios
+        // Fun√ß√£o para carregar usu√°rios
         function carregarUsuarios() {
             const token = localStorage.getItem('token');
             
@@ -466,7 +985,7 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Erro ao carregar usuòrios');
+                    throw new Error('Erro ao carregar usu√°rios');
                 }
                 return response.json();
             })
@@ -485,7 +1004,7 @@
                         <td>${usuario.id}</td>
                         <td>${usuario.nome}</td>
                         <td>${usuario.email}</td>
-                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">Nòo</span>'}</td>
+                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">N√£o</span>'}</td>
                         <td>${dataFormatada}</td>
                     `;
                     
@@ -493,13 +1012,13 @@
                 });
             })
             .catch(error => {
-                console.error('Erro ao carregar usuòrios:', error);
+                console.error('Erro ao carregar usu√°rios:', error);
             });
         }
         
-        // Funòòo para excluir imòvel
+        // Fun√ß√£o para excluir im√≥vel
         function excluirImovel(id) {
-            if (confirm('Tem certeza que deseja excluir este imòvel?')) {
+            if (confirm('Tem certeza que deseja excluir este im√≥vel?')) {
                 const token = localStorage.getItem('token');
                 
                 fetch(`/imoveis/${id}`, {
@@ -511,13 +1030,13 @@
                 .then(response => {
                     if (!response.ok) {
                         if (response.status === 401 || response.status === 403) {
-                            throw new Error('Vocò nòo tem permissòo para realizar esta aòòo');
+                            throw new Error('Voc√™ n√£o tem permiss√£o para realizar esta a√ß√£o');
                         }
-                        throw new Error('Erro ao excluir imòvel');
+                        throw new Error('Erro ao excluir im√≥vel');
                     }
                     
-                    // Recarregar imòveis
-                    carregarImoveis();
+                    // Recarregar im√≥veis
+                    filtrarImoveis('todos');
                 })
                 .catch(error => {
                     alert(error.message);
@@ -525,16 +1044,16 @@
             }
         }
         
-        // Funòòo para visualizar imòvel
+        // Fun√ß√£o para visualizar im√≥vel
         function visualizarImovel(id) {
-            visualizarFotos(id);
+            window.location.href = `/imovel/${id}`;
         }
 
-        // Funòòo para visualizar fotos
+        // Fun√ß√£o para visualizar fotos
         function visualizarFotos(id) {
             const token = localStorage.getItem('token');
             
-            // Buscar o imòvel para obter as fotos
+            // Buscar o im√≥vel para obter as fotos
             fetch(`/imoveis/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -542,7 +1061,7 @@
             })
             .then(response => response.json())
             .then(imovel => {
-                // Atualizar o tòtulo do modal
+                // Atualizar o t√≠tulo do modal
                 document.getElementById('fotosModalTitle').textContent = `${imovel.titulo}`;
                 
                 // Limpar o carousel
@@ -572,14 +1091,14 @@
                     carouselInner.appendChild(item);
                 }
                 
-                // Adicionar detalhes do imòvel
+                // Adicionar detalhes do im√≥vel
                 const detalhesContainer = document.getElementById('imovelDetalhes');
                 
                 let tipoLabel = '';
                 switch (imovel.tipo) {
                     case 'venda': tipoLabel = 'Venda'; break;
                     case 'aluguel': tipoLabel = 'Aluguel'; break;
-                    case 'leilao': tipoLabel = 'Leilòo'; break;
+                    case 'leilao': tipoLabel = 'Leil√£o'; break;
                 }
                 
                 let etiquetaHTML = '';
@@ -609,7 +1128,7 @@
                                 <div class="col-md-3 mb-2">
                                     <div class="d-flex align-items-center">
                                         <i class="fas fa-ruler-combined me-2"></i>
-                                        <span>${imovel.area} mò</span>
+                                        <span>${imovel.area} m¬≤</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 mb-2">
@@ -645,10 +1164,28 @@
             });
         }
 
-        // Funòòo para filtrar imòveis por tipo
-        function filtrarImoveis(tipo) {
-            carregarImoveis(tipo);
-        }
+        // Inicializar todos os carross√©is com configura√ß√µes padr√£o
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousels = document.querySelectorAll('.carousel');
+            carousels.forEach(carousel => {
+                const isMainCarousel = carousel.id === 'carouselServices';
+                new bootstrap.Carousel(carousel, {
+                    interval: isMainCarousel ? 5000 : false,
+                    wrap: true,
+                    touch: true,
+                    keyboard: true,
+                    pause: 'hover'
+                });
+
+                // Prevenir propaga√ß√£o de eventos nos controles
+                carousel.querySelectorAll('.carousel-control-prev, .carousel-control-next').forEach(control => {
+                    control.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                });
+            });
+        });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 

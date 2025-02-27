@@ -134,7 +134,7 @@
                                 <input type="text" class="form-control" id="titulo" required>
                             </div>
                             <div class="col-md-4">
-                                <label for="tipo" class="form-label">Tipo</label>
+                                <label for="tipo" class="form-label">Tipo de Negócio</label>
                                 <select class="form-select" id="tipo" required>
                                     <option value="venda">Venda</option>
                                     <option value="aluguel">Aluguel</option>
@@ -144,11 +144,26 @@
                         </div>
                         
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label for="tipo_imovel" class="form-label">Tipo de Imóvel</label>
+                                <select class="form-select" id="tipo_imovel" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="apartamento">Apartamento</option>
+                                    <option value="chacara">Chácara</option>
+                                    <option value="terreno">Terreno</option>
+                                    <option value="comercial">Comercial</option>
+                                    <option value="rural">Rural</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor, selecione o tipo do imóvel
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <label for="valor" class="form-label">Valor (R$)</label>
                                 <input type="number" class="form-control" id="valor" step="0.01" min="0" required>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="etiqueta" class="form-label">Etiqueta</label>
                                 <select class="form-select" id="etiqueta">
                                     <option value="">Nenhuma</option>
@@ -178,6 +193,10 @@
                                 <input type="number" class="form-control" id="area" min="1" required>
                             </div>
                             <div class="col-md-3">
+                                <label for="comodos" class="form-label">Cômodos</label>
+                                <input type="number" class="form-control" id="comodos" min="1" required>
+                            </div>
+                            <div class="col-md-3">
                                 <label for="quartos" class="form-label">Quartos</label>
                                 <input type="number" class="form-control" id="quartos" min="0" required>
                             </div>
@@ -185,6 +204,9 @@
                                 <label for="banheiros" class="form-label">Banheiros</label>
                                 <input type="number" class="form-control" id="banheiros" min="0" required>
                             </div>
+                        </div>
+                        
+                        <div class="row mb-3">
                             <div class="col-md-3">
                                 <label for="vagas" class="form-label">Vagas</label>
                                 <input type="number" class="form-control" id="vagas" min="0" required>
@@ -356,10 +378,41 @@
                         'Authorization': `Bearer ${token}`
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401 || response.status === 403) {
+                            throw new Error('unauthorized');
+                        }
+                        return response.text().then(text => {
+                            try {
+                                const error = JSON.parse(text);
+                                throw new Error(error.detail || 'Erro ao carregar imóveis');
+                            } catch (e) {
+                                throw new Error(text || 'Erro ao carregar imóveis');
+                            }
+                        });
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    if (!Array.isArray(data)) {
+                        throw new Error('Formato de dados inválido');
+                    }
+
                     const tabela = document.getElementById('tabelaImoveis');
                     tabela.innerHTML = '';
+                    
+                    if (data.length === 0) {
+                        tabela.innerHTML = `
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Nenhum imóvel cadastrado
+                                </td>
+                            </tr>
+                        `;
+                        return;
+                    }
                     
                     data.forEach(imovel => {
                         const tr = document.createElement('tr');
@@ -386,7 +439,26 @@
                 })
                 .catch(error => {
                     console.error('Erro ao carregar imóveis:', error);
-                    alert('Erro ao carregar imóveis. Por favor, tente novamente.');
+                    const tabela = document.getElementById('tabelaImoveis');
+                    
+                    if (error.message === 'unauthorized') {
+                        tratarErroAutenticacao(error);
+                        return;
+                    }
+
+                    const errorMessage = error.message || 'Erro desconhecido';
+                    tabela.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="text-center text-danger">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Não foi possível carregar os imóveis. ${errorMessage}
+                                <br>
+                                <button class="btn btn-outline-primary btn-sm mt-2" onclick="carregarImoveis()">
+                                    <i class="fas fa-sync-alt"></i> Tentar novamente
+                                </button>
+                            </td>
+                        </tr>
+                    `;
                 });
             }
             
@@ -492,15 +564,26 @@
                     alert('Por favor, valide o endereço antes de salvar o imóvel.');
                     return;
                 }
+
+                // Validar tipo_imovel
+                const tipo_imovel = document.getElementById('tipo_imovel').value;
+                if (!tipo_imovel) {
+                    alert('Por favor, selecione o tipo do imóvel.');
+                    document.getElementById('tipo_imovel').focus();
+                    return;
+                }
+
                 const imovelId = document.getElementById('imovelId').value;
                 const isNovo = !imovelId;
                 
                 const formData = new FormData();
                 formData.append('titulo', document.getElementById('titulo').value);
                 formData.append('tipo', document.getElementById('tipo').value);
+                formData.append('tipo_imovel', tipo_imovel);
                 formData.append('valor', document.getElementById('valor').value);
                 formData.append('endereco', document.getElementById('endereco').value);
                 formData.append('area', document.getElementById('area').value);
+                formData.append('comodos', document.getElementById('comodos').value);
                 formData.append('quartos', document.getElementById('quartos').value);
                 formData.append('banheiros', document.getElementById('banheiros').value);
                 formData.append('vagas', document.getElementById('vagas').value);
@@ -662,9 +745,11 @@
                     document.getElementById('imovelId').value = imovel.id;
                     document.getElementById('titulo').value = imovel.titulo;
                     document.getElementById('tipo').value = imovel.tipo;
+                    document.getElementById('tipo_imovel').value = imovel.tipo_imovel;
                     document.getElementById('valor').value = imovel.valor;
                     document.getElementById('endereco').value = imovel.endereco;
                     document.getElementById('area').value = imovel.area;
+                    document.getElementById('comodos').value = imovel.comodos;
                     document.getElementById('quartos').value = imovel.quartos;
                     document.getElementById('banheiros').value = imovel.banheiros;
                     document.getElementById('vagas').value = imovel.vagas;
@@ -849,6 +934,8 @@
 
             // Tornar a função carregarUsuarios global para o botão de tentar novamente
             window.carregarUsuarios = carregarUsuarios;
+            // Tornar a função carregarImoveis global para o botão de tentar novamente
+            window.carregarImoveis = carregarImoveis;
         });
     </script>
 </body>

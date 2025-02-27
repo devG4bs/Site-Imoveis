@@ -1,0 +1,1 @@
+ALTER TABLE imoveis ADD COLUMN comodos INTEGER; 

@@ -61,11 +61,13 @@ templates = Jinja2Templates(directory="app/templates")
 templates.env.globals.update({"charset": "utf-8"})
 
 # Importar rotas
-from .routes import imoveis, auth
+from .routes import imoveis, auth, contatos, sobre
 
 # Incluir rotas
 app.include_router(imoveis.router)
 app.include_router(auth.router)
+app.include_router(contatos.router, prefix="", tags=["contatos"])
+app.include_router(sobre.router, prefix="", tags=["sobre"])
 
 @app.get("/")
 async def home(request: Request):

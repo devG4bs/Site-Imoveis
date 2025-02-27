@@ -9,15 +9,17 @@ class Imovel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     tipo = Column(String(50))  # venda, aluguel, leilao
+    tipo_imovel = Column(String(50), nullable=False)  # casa, apartamento, chacara, terreno, comercial, rural
     titulo = Column(String(200))
     descricao = Column(Text)
     valor = Column(Float)
-    etiqueta = Column(String(50))  # destaque, novo, etc
+    etiqueta = Column(String(50), nullable=True)  # destaque, novo, exclusivo
     endereco = Column(String(200))
     area = Column(Float)
     quartos = Column(Integer)
     banheiros = Column(Integer)
     vagas = Column(Integer)
+    comodos = Column(Integer)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 

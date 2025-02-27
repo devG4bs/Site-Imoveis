@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ imovel.titulo }} - Sistema de Gestão de Imóveis</title>
+    <title>{{ imovel.titulo }} - Sistema de Gestï¿½o de Imï¿½veis</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -46,7 +46,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="/">Freire e Oliveira Imóveis</a>
+            <a class="navbar-brand" href="/">Freire e Oliveira Imï¿½veis</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -104,12 +104,12 @@
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#carouselImovel" data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Próximo</span>
+                        <span class="visually-hidden">Prï¿½ximo</span>
                     </button>
                     {% endif %}
                 </div>
                 
-                <!-- Descrição do imóvel -->
+                <!-- Descriï¿½ï¿½o do imï¿½vel -->
                 <div class="card mb-4">
                     <div class="card-body">
                         <h2 class="card-title">{{ imovel.titulo }}</h2>
@@ -120,7 +120,7 @@
                 <!-- Mapa do Google -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h4 class="mb-0">Localização</h4>
+                        <h4 class="mb-0">Localizaï¿½ï¿½o</h4>
                     </div>
                     <div class="card-body">
                         <div id="map"></div>
@@ -129,16 +129,16 @@
             </div>
             
             <div class="col-md-4">
-                <!-- Informações do imóvel -->
+                <!-- Informaï¿½ï¿½es do imï¿½vel -->
                 <div class="card mb-4">
                     <div class="card-header bg-primary text-white">
                         <h4 class="mb-0">
                             {% if imovel.tipo == 'venda' %}
-                            Imóvel à Venda
+                            Imï¿½vel ï¿½ Venda
                             {% elif imovel.tipo == 'aluguel' %}
-                            Imóvel para Aluguel
+                            Imï¿½vel para Aluguel
                             {% elif imovel.tipo == 'leilao' %}
-                            Imóvel em Leilão
+                            Imï¿½vel em Leilï¿½o
                             {% endif %}
                         </h4>
                     </div>
@@ -152,7 +152,11 @@
                             </div>
                             <div class="info-item">
                                 <i class="fas fa-ruler-combined"></i>
-                                <span>{{ imovel.area }} m²</span>
+                                <span>{{ imovel.area }} mï¿½</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-door-open"></i>
+                                <span>{{ imovel.comodos }} cï¿½modo{% if imovel.comodos != 1 %}s{% endif %}</span>
                             </div>
                             <div class="info-item">
                                 <i class="fas fa-bed"></i>
@@ -172,13 +176,17 @@
                             <i class="fas fa-file-pdf"></i> Baixar PDF
                         </a>
                         
+                        <a href="https://wa.me/5500000000000?text=OlÃ¡! Gostaria de mais informaÃ§Ãµes sobre o imÃ³vel: {{ imovel.titulo }}%0A%0AEndereÃ§o: {{ imovel.endereco }}%0AValor: R$ {{ '{:,.2f}'.format(imovel.valor).replace(',', '.').replace('.', ',') }}%0A%0APoderia me dar mais informaÃ§Ãµes?" target="_blank" class="btn btn-success w-100 mb-2">
+                            <i class="fab fa-whatsapp me-2"></i>Falar no WhatsApp
+                        </a>
+
                         <a href="/" class="btn btn-outline-secondary w-100 mb-2">
                             <i class="fas fa-arrow-left"></i> Voltar
                         </a>
                         
                         <div id="adminActions" class="d-none">
                             <button id="btnExcluirImovel" data-imovel-id="{{ imovel.id }}" class="btn btn-outline-danger w-100">
-                                <i class="fas fa-trash"></i> Excluir Imóvel
+                                <i class="fas fa-trash"></i> Excluir Imï¿½vel
                             </button>
                         </div>
                     </div>
@@ -192,7 +200,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqraYI7Lo6deQdZL6qFgeT2HwVjpiXR4Y"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Verificar autenticação
+            // Verificar autenticaï¿½ï¿½o
             const token = localStorage.getItem('token');
             const isAdmin = localStorage.getItem('isAdmin');
             
@@ -215,7 +223,7 @@
                 window.location.reload();
             });
             
-            // Configurar botão de excluir imóvel
+            // Configurar botï¿½o de excluir imï¿½vel
             const btnExcluir = document.getElementById('btnExcluirImovel');
             if (btnExcluir) {
                 btnExcluir.addEventListener('click', function() {
@@ -224,16 +232,16 @@
                 });
             }
             
-            // Função para excluir imóvel
+            // Funï¿½ï¿½o para excluir imï¿½vel
             window.excluirImovel = function(id) {
-                // Verificar se o usuário é administrador
+                // Verificar se o usuï¿½rio ï¿½ administrador
                 const isAdmin = localStorage.getItem('isAdmin');
                 if (isAdmin !== 'true') {
-                    alert('Apenas administradores podem excluir imóveis.');
+                    alert('Apenas administradores podem excluir imï¿½veis.');
                     return;
                 }
                 
-                if (!confirm('Tem certeza que deseja excluir este imóvel?')) {
+                if (!confirm('Tem certeza que deseja excluir este imï¿½vel?')) {
                     return;
                 }
                 
@@ -247,27 +255,27 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert('Imóvel excluído com sucesso!');
+                        alert('Imï¿½vel excluï¿½do com sucesso!');
                         window.location.href = '/';
                     } else {
-                        throw new Error('Erro ao excluir imóvel');
+                        throw new Error('Erro ao excluir imï¿½vel');
                     }
                 })
                 .catch(error => {
-                    console.error('Erro ao excluir imóvel:', error);
-                    alert('Erro ao excluir imóvel. Por favor, tente novamente.');
+                    console.error('Erro ao excluir imï¿½vel:', error);
+                    alert('Erro ao excluir imï¿½vel. Por favor, tente novamente.');
                 });
             };
 
             // Inicializar o mapa
             function initMap() {
                 const geocoder = new google.maps.Geocoder();
-                // Adiciona o país Brasil ao endereço para melhor precisão
+                // Adiciona o paï¿½s Brasil ao endereï¿½o para melhor precisï¿½o
                 const endereco = "{{ imovel.endereco }}, Brasil";
                 
                 geocoder.geocode({ 
                     address: endereco,
-                    region: 'BR' // Define a região como Brasil
+                    region: 'BR' // Define a regiï¿½o como Brasil
                 }, function(results, status) {
                     if (status === 'OK') {
                         const mapOptions = {
@@ -291,19 +299,19 @@
 
                         const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-                        // Criar um ícone personalizado para o marcador
+                        // Criar um ï¿½cone personalizado para o marcador
                         const marker = new google.maps.Marker({
                             map: map,
                             position: results[0].geometry.location,
                             title: "{{ imovel.titulo }}",
-                            animation: google.maps.Animation.DROP, // Animação ao carregar
+                            animation: google.maps.Animation.DROP, // Animaï¿½ï¿½o ao carregar
                             icon: {
                                 url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
                                 scaledSize: new google.maps.Size(40, 40)
                             }
                         });
 
-                        // Adicionar InfoWindow com informações do imóvel
+                        // Adicionar InfoWindow com informaï¿½ï¿½es do imï¿½vel
                         const infowindow = new google.maps.InfoWindow({
                             content: `
                                 <div style="max-width: 200px;">
@@ -319,7 +327,7 @@
                             infowindow.open(map, marker);
                         });
 
-                        // Centralizar mapa ao clicar no endereço
+                        // Centralizar mapa ao clicar no endereï¿½o
                         document.querySelector('.info-item .fa-map-marker-alt').parentElement.addEventListener('click', function() {
                             map.setCenter(marker.getPosition());
                             map.setZoom(17);
@@ -327,18 +335,18 @@
                         });
 
                     } else {
-                        console.error('Erro ao geocodificar endereço:', status);
+                        console.error('Erro ao geocodificar endereï¿½o:', status);
                         document.getElementById('map').innerHTML = `
                             <div class="alert alert-warning text-center">
                                 <i class="fas fa-exclamation-triangle"></i>
-                                Não foi possível carregar o mapa. Verifique se o endereço está correto.
+                                Nï¿½o foi possï¿½vel carregar o mapa. Verifique se o endereï¿½o estï¿½ correto.
                             </div>
                         `;
                     }
                 });
             }
 
-            // Inicializar o mapa quando a página carregar
+            // Inicializar o mapa quando a pï¿½gina carregar
             initMap();
         });
     </script>

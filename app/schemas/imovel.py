@@ -4,15 +4,17 @@ from typing import Optional, List
 
 class ImovelBase(BaseModel):
     tipo: str
+    tipo_imovel: str
     titulo: str
     descricao: str
     valor: float
-    etiqueta: str
+    etiqueta: Optional[str] = None
     endereco: str
     area: float
     quartos: int
     banheiros: int
     vagas: int
+    comodos: int
 
 class ImovelCreate(ImovelBase):
     pass

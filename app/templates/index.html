@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freire e Oliveira Imóveis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+    <style>
+        .imovel-card {
+            transition: transform 0.2s;
+        }
+        .imovel-card:hover {
+            transform: translateY(-5px);
+        }
+        .etiqueta {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+        /* Esconder botões de lixeira na página inicial */
+        .btn-outline-danger {
+            display: none !important;
+        }
+        /* Garantir que o botão Ver seja exibido */
+        .btn-outline-primary, .btn-primary {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        /* Estilo específico para o botão Ver */
+        .card-footer .btn-primary {
+            display: block !important;
+            width: auto !important;
+            min-width: 80px;
+        }
+        .carousel-item img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .modal .carousel-item img {
+            height: 400px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Freire e Oliveira Imóveis</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="filtroTipo" role="button" data-bs-toggle="dropdown">
+                            Filtrar por Tipo
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('todos')">Todos</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('venda')">Venda</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('aluguel')">Aluguel</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="filtrarImoveis('leilao')">Leilão</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" id="loginItem">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="adminItem">
+                        <a class="nav-link" href="/admin">
+                            <i class="fas fa-user-shield"></i> Painel Admin
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="logoutItem">
+                        <a class="nav-link" href="#" id="btnLogout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row" id="imoveisContainer">
+            <!-- Os imóveis serão carregados aqui dinamicamente -->
+        </div>
+    </div>
+
+    <!-- Modal para visualizar detalhes do imóvel -->
+    <div class="modal fade" id="imovelModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imovelModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselImovel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="carouselImovelInner">
+                            <!-- As fotos serão carregadas aqui dinamicamente -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselImovel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselImovel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    </div>
+                    <div class="mt-3" id="imovelDetalhes">
+                        <!-- Detalhes do imóvel serão carregados aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para novo imóvel -->
+    <div class="modal fade" id="novoImovelModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Imóvel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="imovelForm">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Tipo</label>
+                                <select class="form-select" name="tipo" required>
+                                    <option value="venda">Venda</option>
+                                    <option value="aluguel">Aluguel</option>
+                                    <option value="leilao">Leilão</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Etiqueta</label>
+                                <select class="form-select" name="etiqueta">
+                                    <option value="destaque">Destaque</option>
+                                    <option value="novo">Novo</option>
+                                    <option value="exclusivo">Exclusivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Título</label>
+                            <input type="text" class="form-control" name="titulo" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <textarea class="form-control" name="descricao" rows="3" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Valor</label>
+                                <input type="number" class="form-control" name="valor" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Área (m²)</label>
+                                <input type="number" class="form-control" name="area" required>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Quartos</label>
+                                <input type="number" class="form-control" name="quartos" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Banheiros</label>
+                                <input type="number" class="form-control" name="banheiros" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Vagas</label>
+                                <input type="number" class="form-control" name="vagas" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Endereço</label>
+                            <input type="text" class="form-control" name="endereco" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fotos</label>
+                            <input type="file" class="form-control" name="fotos" multiple accept="image/*" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarImovel">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para visualizar fotos -->
+    <div class="modal fade" id="fotosModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fotosModalTitle">Fotos do Imóvel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="carouselFotos" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="carouselFotosInner">
+                            <!-- As fotos serão carregadas aqui dinamicamente -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselFotos" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselFotos" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    </div>
+                    <div class="mt-3" id="imovelDetalhes">
+                        <!-- Detalhes do imóvel serão carregados aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticação
+            const token = localStorage.getItem('token');
+            const isAdmin = localStorage.getItem('isAdmin');
+            
+            // Atualizar a interface com base na autenticação
+            if (token) {
+                document.getElementById('loginItem').classList.add('d-none');
+                document.getElementById('logoutItem').classList.remove('d-none');
+                
+                if (isAdmin === 'true') {
+                    document.getElementById('adminItem').classList.remove('d-none');
+                }
+            }
+            
+            // Carregar imóveis
+            carregarImoveis();
+            
+            // Event listeners para menu
+            document.getElementById('menuImoveis')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('menuImoveis').classList.add('active');
+                document.getElementById('menuUsuarios').classList.remove('active');
+                document.getElementById('imoveisContent').classList.remove('d-none');
+                document.getElementById('usuariosContent').classList.add('d-none');
+                document.getElementById('contentTitle').textContent = 'Gerenciar Imóveis';
+                document.getElementById('btnNovoImovel').parentElement.classList.remove('d-none');
+            });
+            
+            document.getElementById('menuUsuarios')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('menuUsuarios').classList.add('active');
+                document.getElementById('menuImoveis').classList.remove('active');
+                document.getElementById('imoveisContent').classList.add('d-none');
+                document.getElementById('usuariosContent').classList.remove('d-none');
+                document.getElementById('contentTitle').textContent = 'Gerenciar Usuários';
+                document.getElementById('btnNovoImovel').parentElement.classList.add('d-none');
+                carregarUsuarios();
+            });
+            
+            // Logout
+            document.getElementById('btnLogout')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('isAdmin');
+                window.location.href = '/login';
+            });
+            
+            // Abrir modal de novo imóvel
+            document.getElementById('btnNovoImovel')?.addEventListener('click', function() {
+                const modal = new bootstrap.Modal(document.getElementById('novoImovelModal'));
+                modal.show();
+            });
+            
+            // Salvar novo imóvel
+            document.getElementById('btnSalvarImovel')?.addEventListener('click', function() {
+                const form = document.getElementById('imovelForm');
+                const formData = new FormData(form);
+                
+                fetch('/imoveis/', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401 || response.status === 403) {
+                            throw new Error('Você não tem permissão para realizar esta ação');
+                        }
+                        throw new Error('Erro ao salvar imóvel');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Fechar modal
+                    bootstrap.Modal.getInstance(document.getElementById('novoImovelModal')).hide();
+                    
+                    // Recarregar imóveis
+                    carregarImoveis();
+                    
+                    // Limpar formulário
+                    form.reset();
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            });
+        });
+        
+        // Função para carregar imóveis
+        function carregarImoveis(tipo = null) {
+            let url = '/imoveis/';
+            if (tipo && tipo !== 'todos') {
+                url += `?tipo=${tipo}`;
+            }
+            
+            const headers = {};
+            const token = localStorage.getItem('token');
+            if (token) {
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+            
+            fetch(url, {
+                headers: headers
+            })
+            .then(response => response.json())
+            .then(imoveis => {
+                const container = document.getElementById('imoveisContainer');
+                container.innerHTML = '';
+                
+                imoveis.forEach(imovel => {
+                    const card = document.createElement('div');
+                    card.className = 'col-md-4 mb-4';
+                    
+                    let etiquetaHTML = '';
+                    if (imovel.etiqueta) {
+                        let etiquetaClass = '';
+                        switch (imovel.etiqueta) {
+                            case 'destaque': etiquetaClass = 'bg-warning'; break;
+                            case 'novo': etiquetaClass = 'bg-success'; break;
+                            case 'exclusivo': etiquetaClass = 'bg-danger'; break;
+                        }
+                        etiquetaHTML = `<span class="badge ${etiquetaClass} etiqueta">${imovel.etiqueta.toUpperCase()}</span>`;
+                    }
+                    
+                    let tipoLabel = '';
+                    switch (imovel.tipo) {
+                        case 'venda': tipoLabel = 'Venda'; break;
+                        case 'aluguel': tipoLabel = 'Aluguel'; break;
+                        case 'leilao': tipoLabel = 'Leilão'; break;
+                    }
+                    
+                    // Criar carrossel de fotos
+                    let carouselId = `carousel-${imovel.id}`;
+                    let fotosHTML = '';
+                    
+                    if (imovel.fotos && imovel.fotos.length > 0) {
+                        fotosHTML = `
+                            <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">`;
+                        
+                        imovel.fotos.forEach((foto, index) => {
+                            fotosHTML += `
+                                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                                    <img src="/uploads/imoveis/${imovel.id}/${foto}" class="d-block w-100" alt="${imovel.titulo}" style="height: 200px; object-fit: cover;">
+                                </div>`;
+                        });
+                        
+                        fotosHTML += `
+                                </div>`;
+                        
+                        if (imovel.fotos.length > 1) {
+                            fotosHTML += `
+                                <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Próximo</span>
+                                </button>`;
+                        }
+                        
+                        fotosHTML += `</div>`;
+                    } else {
+                        fotosHTML = `<div class="text-center p-5 bg-light">Sem fotos</div>`;
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="card imovel-card" style="cursor: pointer;">
+                            ${etiquetaHTML}
+                            <div class="position-relative">
+                                ${fotosHTML}
+                                <span class="badge bg-primary position-absolute bottom-0 start-0 m-2">${tipoLabel}</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">${imovel.titulo}</h5>
+                                <p class="card-text text-truncate">${imovel.descricao}</p>
+                                <p class="card-text">
+                                    <strong>R$ ${imovel.valor.toLocaleString('pt-BR')}</strong>
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <span><i class="fas fa-ruler-combined"></i> ${imovel.area}m²</span>
+                                    <span><i class="fas fa-bed"></i> ${imovel.quartos}</span>
+                                    <span><i class="fas fa-bath"></i> ${imovel.banheiros}</span>
+                                    <span><i class="fas fa-car"></i> ${imovel.vagas}</span>
+                                </div>
+                            </div>
+                            <div class="card-footer d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-primary" onclick="event.stopPropagation(); visualizarImovel(${imovel.id})">
+                                    <i class="fas fa-eye"></i> Ver
+                                </button>
+                                ${localStorage.getItem('isAdmin') === 'true' ? `
+                                <button class="btn btn-sm btn-outline-danger" onclick="event.stopPropagation(); excluirImovel(${imovel.id})">
+                                    <i class="fas fa-trash"></i> Excluir
+                                </button>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                    
+                    // Adicionar evento de clique ao card após adicioná-lo ao DOM
+                    const cardElement = card.querySelector('.imovel-card');
+                    cardElement.addEventListener('click', function(e) {
+                        // Verificar se o clique não foi em um botão
+                        if (!e.target.closest('button')) {
+                            window.location.href = `/imoveis/${imovel.id}/detalhes`;
+                        }
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar imóveis:', error);
+            });
+        }
+        
+        // Função para carregar usuários
+        function carregarUsuarios() {
+            const token = localStorage.getItem('token');
+            
+            fetch('/auth/usuarios', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao carregar usuários');
+                }
+                return response.json();
+            })
+            .then(usuarios => {
+                const tbody = document.getElementById('usuariosTableBody');
+                tbody.innerHTML = '';
+                
+                usuarios.forEach(usuario => {
+                    const tr = document.createElement('tr');
+                    
+                    const dataCriacao = new Date(usuario.data_criacao);
+                    const dataFormatada = dataCriacao.toLocaleDateString('pt-BR') + ' ' + 
+                                         dataCriacao.toLocaleTimeString('pt-BR');
+                    
+                    tr.innerHTML = `
+                        <td>${usuario.id}</td>
+                        <td>${usuario.nome}</td>
+                        <td>${usuario.email}</td>
+                        <td>${usuario.is_admin ? '<span class="badge bg-success">Sim</span>' : '<span class="badge bg-secondary">Não</span>'}</td>
+                        <td>${dataFormatada}</td>
+                    `;
+                    
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Erro ao carregar usuários:', error);
+            });
+        }
+        
+        // Função para excluir imóvel
+        function excluirImovel(id) {
+            if (confirm('Tem certeza que deseja excluir este imóvel?')) {
+                const token = localStorage.getItem('token');
+                
+                fetch(`/imoveis/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        if (response.status === 401 || response.status === 403) {
+                            throw new Error('Você não tem permissão para realizar esta ação');
+                        }
+                        throw new Error('Erro ao excluir imóvel');
+                    }
+                    
+                    // Recarregar imóveis
+                    carregarImoveis();
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+            }
+        }
+        
+        // Função para visualizar imóvel
+        function visualizarImovel(id) {
+            visualizarFotos(id);
+        }
+
+        // Função para visualizar fotos
+        function visualizarFotos(id) {
+            const token = localStorage.getItem('token');
+            
+            // Buscar o imóvel para obter as fotos
+            fetch(`/imoveis/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(imovel => {
+                // Atualizar o título do modal
+                document.getElementById('fotosModalTitle').textContent = `${imovel.titulo}`;
+                
+                // Limpar o carousel
+                const carouselInner = document.getElementById('carouselFotosInner');
+                carouselInner.innerHTML = '';
+                
+                // Adicionar cada foto ao carousel
+                if (imovel.fotos && imovel.fotos.length > 0) {
+                    imovel.fotos.forEach((foto, index) => {
+                        const item = document.createElement('div');
+                        item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+                        
+                        const img = document.createElement('img');
+                        img.src = `/uploads/imoveis/${imovel.id}/${foto}`;
+                        img.className = 'd-block w-100';
+                        img.alt = `Foto ${index + 1}`;
+                        img.style.height = '400px';
+                        img.style.objectFit = 'contain';
+                        
+                        item.appendChild(img);
+                        carouselInner.appendChild(item);
+                    });
+                } else {
+                    const item = document.createElement('div');
+                    item.className = 'carousel-item active';
+                    item.innerHTML = '<div class="text-center p-5 bg-light">Sem fotos</div>';
+                    carouselInner.appendChild(item);
+                }
+                
+                // Adicionar detalhes do imóvel
+                const detalhesContainer = document.getElementById('imovelDetalhes');
+                
+                let tipoLabel = '';
+                switch (imovel.tipo) {
+                    case 'venda': tipoLabel = 'Venda'; break;
+                    case 'aluguel': tipoLabel = 'Aluguel'; break;
+                    case 'leilao': tipoLabel = 'Leilão'; break;
+                }
+                
+                let etiquetaHTML = '';
+                if (imovel.etiqueta) {
+                    let etiquetaClass = '';
+                    switch (imovel.etiqueta) {
+                        case 'destaque': etiquetaClass = 'bg-warning'; break;
+                        case 'novo': etiquetaClass = 'bg-success'; break;
+                        case 'exclusivo': etiquetaClass = 'bg-danger'; break;
+                    }
+                    etiquetaHTML = `<span class="badge ${etiquetaClass} me-2">${imovel.etiqueta.toUpperCase()}</span>`;
+                }
+                
+                detalhesContainer.innerHTML = `
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                ${etiquetaHTML}
+                                <span class="badge bg-primary">${tipoLabel}</span>
+                            </div>
+                            <h4>${imovel.titulo}</h4>
+                            <p>${imovel.descricao}</p>
+                            <h5 class="text-primary">R$ ${imovel.valor.toLocaleString('pt-BR')}</h5>
+                            <p><i class="fas fa-map-marker-alt"></i> ${imovel.endereco}</p>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-3 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-ruler-combined me-2"></i>
+                                        <span>${imovel.area} m²</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-bed me-2"></i>
+                                        <span>${imovel.quartos} quartos</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-bath me-2"></i>
+                                        <span>${imovel.banheiros} banheiros</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-car me-2"></i>
+                                        <span>${imovel.vagas} vagas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Abrir o modal
+                const modal = new bootstrap.Modal(document.getElementById('fotosModal'));
+                modal.show();
+            })
+            .catch(error => {
+                console.error('Erro ao carregar fotos:', error);
+                alert('Erro ao carregar fotos. Por favor, tente novamente.');
+            });
+        }
+
+        // Função para filtrar imóveis por tipo
+        function filtrarImoveis(tipo) {
+            carregarImoveis(tipo);
+        }
+    </script>
+</body>
+</html> 

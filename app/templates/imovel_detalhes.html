@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ imovel.titulo }} - Sistema de Gestão de Imóveis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+        }
+        .etiqueta {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+        .info-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .info-item i {
+            width: 30px;
+            text-align: center;
+            margin-right: 10px;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Freire e Oliveira Imóveis</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" id="loginItem">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="adminItem">
+                        <a class="nav-link" href="/admin">
+                            <i class="fas fa-user-shield"></i> Painel Admin
+                        </a>
+                    </li>
+                    <li class="nav-item d-none" id="logoutItem">
+                        <a class="nav-link" href="#" id="btnLogout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Carrossel de fotos -->
+                <div id="carouselImovel" class="carousel slide mb-4" data-bs-ride="carousel">
+                    {% if imovel.etiqueta %}
+                    <div class="etiqueta">
+                        {% if imovel.etiqueta == 'destaque' %}
+                        <span class="badge bg-warning">DESTAQUE</span>
+                        {% elif imovel.etiqueta == 'novo' %}
+                        <span class="badge bg-success">NOVO</span>
+                        {% elif imovel.etiqueta == 'exclusivo' %}
+                        <span class="badge bg-danger">EXCLUSIVO</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="carousel-inner">
+                        {% for foto in fotos %}
+                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                            <img src="/uploads/imoveis/{{ imovel.id }}/{{ foto }}" class="d-block w-100" alt="{{ imovel.titulo }}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if fotos|length > 1 %}
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselImovel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselImovel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Próximo</span>
+                    </button>
+                    {% endif %}
+                </div>
+                
+                <!-- Descrição do imóvel -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ imovel.titulo }}</h2>
+                        <p class="card-text">{{ imovel.descricao }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <!-- Informações do imóvel -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            {% if imovel.tipo == 'venda' %}
+                            Imóvel à Venda
+                            {% elif imovel.tipo == 'aluguel' %}
+                            Imóvel para Aluguel
+                            {% elif imovel.tipo == 'leilao' %}
+                            Imóvel em Leilão
+                            {% endif %}
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-primary mb-4">R$ {{ "{:,.2f}".format(imovel.valor).replace(',', '.').replace('.', ',') }}</h3>
+                        
+                        <div class="info-section">
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ imovel.endereco }}</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-ruler-combined"></i>
+                                <span>{{ imovel.area }} m²</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-bed"></i>
+                                <span>{{ imovel.quartos }} quarto{% if imovel.quartos != 1 %}s{% endif %}</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-bath"></i>
+                                <span>{{ imovel.banheiros }} banheiro{% if imovel.banheiros != 1 %}s{% endif %}</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-car"></i>
+                                <span>{{ imovel.vagas }} vaga{% if imovel.vagas != 1 %}s{% endif %} de garagem</span>
+                            </div>
+                        </div>
+                        
+                        <a href="/imoveis/{{ imovel.id }}/pdf" class="btn btn-outline-primary w-100 mb-2">
+                            <i class="fas fa-file-pdf"></i> Baixar PDF
+                        </a>
+                        
+                        <a href="/" class="btn btn-outline-secondary w-100 mb-2">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                        
+                        <div id="adminActions" class="d-none">
+                            <button id="btnExcluirImovel" data-imovel-id="{{ imovel.id }}" class="btn btn-outline-danger w-100">
+                                <i class="fas fa-trash"></i> Excluir Imóvel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticação
+            const token = localStorage.getItem('token');
+            const isAdmin = localStorage.getItem('isAdmin');
+            
+            if (token) {
+                document.getElementById('loginItem').classList.add('d-none');
+                document.getElementById('logoutItem').classList.remove('d-none');
+                
+                if (isAdmin === 'true') {
+                    document.getElementById('adminItem').classList.remove('d-none');
+                    document.getElementById('adminActions').classList.remove('d-none');
+                }
+            }
+            
+            // Logout
+            document.getElementById('btnLogout')?.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('isAdmin');
+                window.location.reload();
+            });
+            
+            // Configurar botão de excluir imóvel
+            const btnExcluir = document.getElementById('btnExcluirImovel');
+            if (btnExcluir) {
+                btnExcluir.addEventListener('click', function() {
+                    const imovelId = this.getAttribute('data-imovel-id');
+                    excluirImovel(imovelId);
+                });
+            }
+            
+            // Função para excluir imóvel
+            window.excluirImovel = function(id) {
+                // Verificar se o usuário é administrador
+                const isAdmin = localStorage.getItem('isAdmin');
+                if (isAdmin !== 'true') {
+                    alert('Apenas administradores podem excluir imóveis.');
+                    return;
+                }
+                
+                if (!confirm('Tem certeza que deseja excluir este imóvel?')) {
+                    return;
+                }
+                
+                const token = localStorage.getItem('token');
+                
+                fetch(`/imoveis/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Imóvel excluído com sucesso!');
+                        window.location.href = '/';
+                    } else {
+                        throw new Error('Erro ao excluir imóvel');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao excluir imóvel:', error);
+                    alert('Erro ao excluir imóvel. Por favor, tente novamente.');
+                });
+            };
+        });
+    </script>
+</body>
+</html> 

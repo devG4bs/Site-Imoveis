@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ imovel.titulo }} - Detalhes do Imóvel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 10px;
+        }
+        .title {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+        .property-info {
+            margin-bottom: 30px;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 15px;
+        }
+        .address {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .feature {
+            flex-basis: 48%;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .description {
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        .photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .photo {
+            flex-basis: calc(50% - 5px);
+            height: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 14px;
+            color: #666;
+        }
+        .contact {
+            margin-top: 10px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .badge-primary {
+            background-color: #0d6efd;
+        }
+        .badge-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .badge-success {
+            background-color: #198754;
+        }
+        .badge-danger {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Sistema de Gestão de Imóveis</div>
+            <h1 class="title">{{ imovel.titulo }}</h1>
+            <p class="subtitle">Código: {{ imovel.id }}</p>
+        </div>
+        
+        <div class="property-info">
+            {% if imovel.etiqueta %}
+            <div>
+                {% if imovel.etiqueta == 'destaque' %}
+                <span class="badge badge-warning">DESTAQUE</span>
+                {% elif imovel.etiqueta == 'novo' %}
+                <span class="badge badge-success">NOVO</span>
+                {% elif imovel.etiqueta == 'exclusivo' %}
+                <span class="badge badge-danger">EXCLUSIVO</span>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            <div>
+                {% if imovel.tipo == 'venda' %}
+                <span class="badge badge-primary">VENDA</span>
+                {% elif imovel.tipo == 'aluguel' %}
+                <span class="badge badge-primary">ALUGUEL</span>
+                {% elif imovel.tipo == 'leilao' %}
+                <span class="badge badge-primary">LEILÃO</span>
+                {% endif %}
+            </div>
+            
+            <div class="price">R$ {{ "{:,.2f}".format(imovel.valor).replace(',', '.').replace('.', ',') }}</div>
+            <div class="address">{{ imovel.endereco }}</div>
+            
+            <div class="features">
+                <div class="feature">
+                    <strong>Área:</strong> {{ imovel.area }} m²
+                </div>
+                <div class="feature">
+                    <strong>Quartos:</strong> {{ imovel.quartos }}
+                </div>
+                <div class="feature">
+                    <strong>Banheiros:</strong> {{ imovel.banheiros }}
+                </div>
+                <div class="feature">
+                    <strong>Vagas de Garagem:</strong> {{ imovel.vagas }}
+                </div>
+            </div>
+        </div>
+        
+        <div class="description">
+            <h2>Descrição</h2>
+            <p>{{ imovel.descricao }}</p>
+        </div>
+        
+        {% if fotos %}
+        <div class="photos">
+            {% for foto in fotos %}
+            <div class="photo">
+                <img src="{{ foto_path }}/{{ foto }}" alt="{{ imovel.titulo }}">
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <div class="footer">
+            <p>Este documento foi gerado automaticamente pelo Sistema de Gestão de Imóveis.</p>
+            <p>Data de geração: {{ data_geracao }}</p>
+            <div class="contact">
+                <p>Para mais informações, entre em contato:</p>
+                <p>Telefone: (11) 1234-5678 | Email: contato@imobiliaria.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

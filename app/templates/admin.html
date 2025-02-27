@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Sistema de Gestão de Imóveis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .nav-tabs .nav-link {
+            color: #495057;
+        }
+        .nav-tabs .nav-link.active {
+            color: #0d6efd;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema de Imóveis</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home"></i> Página Inicial
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="btnLogout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Painel Administrativo</h1>
+        
+        <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="imoveis-tab" data-bs-toggle="tab" data-bs-target="#imoveis" type="button" role="tab">
+                    <i class="fas fa-building"></i> Imóveis
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="usuarios-tab" data-bs-toggle="tab" data-bs-target="#usuarios" type="button" role="tab">
+                    <i class="fas fa-users"></i> Usuários
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="adminTabsContent">
+            <!-- Tab Imóveis -->
+            <div class="tab-pane fade show active" id="imoveis" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Gerenciar Imóveis</h2>
+                    <button class="btn btn-primary" id="btnNovoImovel">
+                        <i class="fas fa-plus"></i> Novo Imóvel
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th>Endereço</th>
+                                <th>Etiqueta</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaImoveis">
+                            <!-- Dados serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Tab Usuários -->
+            <div class="tab-pane fade" id="usuarios" role="tabpanel">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2>Gerenciar Usuários</h2>
+                    <button class="btn btn-primary" id="btnNovoUsuario">
+                        <i class="fas fa-plus"></i> Novo Usuário
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>Admin</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaUsuarios">
+                            <!-- Dados serão carregados via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Novo Imóvel -->
+    <div class="modal fade" id="modalImovel" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalImovelTitulo">Novo Imóvel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formImovel">
+                        <input type="hidden" id="imovelId">
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-8">
+                                <label for="titulo" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="titulo" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="tipo" class="form-label">Tipo</label>
+                                <select class="form-select" id="tipo" required>
+                                    <option value="venda">Venda</option>
+                                    <option value="aluguel">Aluguel</option>
+                                    <option value="leilao">Leilão</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="valor" class="form-label">Valor (R$)</label>
+                                <input type="number" class="form-control" id="valor" step="0.01" min="0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="etiqueta" class="form-label">Etiqueta</label>
+                                <select class="form-select" id="etiqueta">
+                                    <option value="">Nenhuma</option>
+                                    <option value="destaque">Destaque</option>
+                                    <option value="novo">Novo</option>
+                                    <option value="exclusivo">Exclusivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="endereco" required>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="area" class="form-label">Área (m²)</label>
+                                <input type="number" class="form-control" id="area" min="1" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="quartos" class="form-label">Quartos</label>
+                                <input type="number" class="form-control" id="quartos" min="0" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="banheiros" class="form-label">Banheiros</label>
+                                <input type="number" class="form-control" id="banheiros" min="0" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="vagas" class="form-label">Vagas</label>
+                                <input type="number" class="form-control" id="vagas" min="0" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="descricao" rows="4" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="fotos" class="form-label">Fotos</label>
+                            <input type="file" class="form-control" id="fotos" multiple accept="image/*">
+                            <div id="fotosPreview" class="mt-2 row g-2"></div>
+                            <div id="fotosAtuais" class="mt-2 row g-2"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarImovel">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Novo Usuário -->
+    <div class="modal fade" id="modalUsuario" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalUsuarioTitulo">Novo Usuário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formUsuario">
+                        <input type="hidden" id="usuarioId">
+                        
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="senha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senha">
+                            <small class="text-muted" id="senhaHelp">Deixe em branco para manter a senha atual (ao editar).</small>
+                        </div>
+                        
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="isAdmin">
+                            <label class="form-check-label" for="isAdmin">
+                                Usuário Administrador
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarUsuario">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar autenticação
+            const token = localStorage.getItem('token');
+            const isAdmin = localStorage.getItem('isAdmin');
+            
+            if (!token || isAdmin !== 'true') {
+                window.location.href = '/login';
+                return;
+            }
+            
+            // Inicializar modais
+            const modalImovel = new bootstrap.Modal(document.getElementById('modalImovel'));
+            const modalUsuario = new bootstrap.Modal(document.getElementById('modalUsuario'));
+            
+            // Carregar dados
+            carregarImoveis();
+            carregarUsuarios();
+            
+            // Event Listeners
+            document.getElementById('btnLogout').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('token');
+                localStorage.removeItem('userId');
+                localStorage.removeItem('isAdmin');
+                window.location.href = '/login';
+            });
+            
+            document.getElementById('btnNovoImovel').addEventListener('click', function() {
+                document.getElementById('modalImovelTitulo').textContent = 'Novo Imóvel';
+                document.getElementById('formImovel').reset();
+                document.getElementById('imovelId').value = '';
+                document.getElementById('fotosPreview').innerHTML = '';
+                document.getElementById('fotosAtuais').innerHTML = '';
+                modalImovel.show();
+            });
+            
+            document.getElementById('btnNovoUsuario').addEventListener('click', function() {
+                document.getElementById('modalUsuarioTitulo').textContent = 'Novo Usuário';
+                document.getElementById('formUsuario').reset();
+                document.getElementById('usuarioId').value = '';
+                document.getElementById('senhaHelp').classList.add('d-none');
+                modalUsuario.show();
+            });
+            
+            document.getElementById('btnSalvarImovel').addEventListener('click', salvarImovel);
+            document.getElementById('btnSalvarUsuario').addEventListener('click', salvarUsuario);
+            
+            document.getElementById('fotos').addEventListener('change', previewFotos);
+            
+            // Funções
+            function carregarImoveis() {
+                fetch('/imoveis', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const tabela = document.getElementById('tabelaImoveis');
+                    tabela.innerHTML = '';
+                    
+                    data.forEach(imovel => {
+                        const tr = document.createElement('tr');
+                        
+                        tr.innerHTML = `
+                            <td>${imovel.id}</td>
+                            <td>${imovel.titulo}</td>
+                            <td>${formatarTipo(imovel.tipo)}</td>
+                            <td>R$ ${formatarValor(imovel.valor)}</td>
+                            <td>${imovel.endereco}</td>
+                            <td>${formatarEtiqueta(imovel.etiqueta)}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary me-1" onclick="editarImovel(${imovel.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="excluirImovel(${imovel.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        `;
+                        
+                        tabela.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar imóveis:', error);
+                    alert('Erro ao carregar imóveis. Por favor, tente novamente.');
+                });
+            }
+            
+            function carregarUsuarios() {
+                fetch('/auth/usuarios', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const tabela = document.getElementById('tabelaUsuarios');
+                    tabela.innerHTML = '';
+                    
+                    data.forEach(usuario => {
+                        const tr = document.createElement('tr');
+                        
+                        tr.innerHTML = `
+                            <td>${usuario.id}</td>
+                            <td>${usuario.nome}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.is_admin ? '<span class="badge bg-primary">Sim</span>' : '<span class="badge bg-secondary">Não</span>'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary me-1" onclick="editarUsuario(${usuario.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="excluirUsuario(${usuario.id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        `;
+                        
+                        tabela.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar usuários:', error);
+                    alert('Erro ao carregar usuários. Por favor, tente novamente.');
+                });
+            }
+            
+            function salvarImovel() {
+                const imovelId = document.getElementById('imovelId').value;
+                const isNovo = !imovelId;
+                
+                const formData = new FormData();
+                formData.append('titulo', document.getElementById('titulo').value);
+                formData.append('tipo', document.getElementById('tipo').value);
+                formData.append('valor', document.getElementById('valor').value);
+                formData.append('endereco', document.getElementById('endereco').value);
+                formData.append('area', document.getElementById('area').value);
+                formData.append('quartos', document.getElementById('quartos').value);
+                formData.append('banheiros', document.getElementById('banheiros').value);
+                formData.append('vagas', document.getElementById('vagas').value);
+                formData.append('descricao', document.getElementById('descricao').value);
+                
+                const etiqueta = document.getElementById('etiqueta').value;
+                if (etiqueta) {
+                    formData.append('etiqueta', etiqueta);
+                }
+                
+                const fotos = document.getElementById('fotos').files;
+                for (let i = 0; i < fotos.length; i++) {
+                    formData.append('fotos', fotos[i]);
+                }
+                
+                const url = isNovo ? '/imoveis' : `/imoveis/${imovelId}`;
+                const method = isNovo ? 'POST' : 'PUT';
+                
+                fetch(url, {
+                    method: method,
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        modalImovel.hide();
+                        carregarImoveis();
+                        alert(isNovo ? 'Imóvel cadastrado com sucesso!' : 'Imóvel atualizado com sucesso!');
+                    } else {
+                        throw new Error('Erro ao salvar imóvel');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao salvar imóvel:', error);
+                    alert('Erro ao salvar imóvel. Por favor, tente novamente.');
+                });
+            }
+            
+            function salvarUsuario() {
+                const usuarioId = document.getElementById('usuarioId').value;
+                const isNovo = !usuarioId;
+                
+                const dados = {
+                    nome: document.getElementById('nome').value,
+                    email: document.getElementById('email').value,
+                    is_admin: document.getElementById('isAdmin').checked
+                };
+                
+                const senha = document.getElementById('senha').value;
+                if (senha) {
+                    dados.senha = senha;
+                }
+                
+                const url = isNovo ? '/auth/usuarios' : `/auth/usuarios/${usuarioId}`;
+                const method = isNovo ? 'POST' : 'PUT';
+                
+                fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(dados)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        modalUsuario.hide();
+                        carregarUsuarios();
+                        alert(isNovo ? 'Usuário cadastrado com sucesso!' : 'Usuário atualizado com sucesso!');
+                    } else {
+                        throw new Error('Erro ao salvar usuário');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao salvar usuário:', error);
+                    alert('Erro ao salvar usuário. Por favor, tente novamente.');
+                });
+            }
+            
+            function previewFotos() {
+                const fotos = document.getElementById('fotos').files;
+                const preview = document.getElementById('fotosPreview');
+                preview.innerHTML = '';
+                
+                for (let i = 0; i < fotos.length; i++) {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3';
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    
+                    const img = document.createElement('img');
+                    img.className = 'card-img-top';
+                    img.style.height = '150px';
+                    img.style.objectFit = 'cover';
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(fotos[i]);
+                    
+                    card.appendChild(img);
+                    col.appendChild(card);
+                    preview.appendChild(col);
+                }
+            }
+            
+            function formatarTipo(tipo) {
+                switch (tipo) {
+                    case 'venda': return 'Venda';
+                    case 'aluguel': return 'Aluguel';
+                    case 'leilao': return 'Leilão';
+                    default: return tipo;
+                }
+            }
+            
+            function formatarValor(valor) {
+                return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+            
+            function formatarEtiqueta(etiqueta) {
+                if (!etiqueta) return '-';
+                
+                switch (etiqueta) {
+                    case 'destaque': return '<span class="badge bg-warning">DESTAQUE</span>';
+                    case 'novo': return '<span class="badge bg-success">NOVO</span>';
+                    case 'exclusivo': return '<span class="badge bg-danger">EXCLUSIVO</span>';
+                    default: return etiqueta;
+                }
+            }
+            
+            // Funções globais para edição e exclusão
+            window.editarImovel = function(id) {
+                fetch(`/imoveis/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(imovel => {
+                    document.getElementById('modalImovelTitulo').textContent = 'Editar Imóvel';
+                    document.getElementById('imovelId').value = imovel.id;
+                    document.getElementById('titulo').value = imovel.titulo;
+                    document.getElementById('tipo').value = imovel.tipo;
+                    document.getElementById('valor').value = imovel.valor;
+                    document.getElementById('endereco').value = imovel.endereco;
+                    document.getElementById('area').value = imovel.area;
+                    document.getElementById('quartos').value = imovel.quartos;
+                    document.getElementById('banheiros').value = imovel.banheiros;
+                    document.getElementById('vagas').value = imovel.vagas;
+                    document.getElementById('descricao').value = imovel.descricao;
+                    document.getElementById('etiqueta').value = imovel.etiqueta || '';
+                    
+                    // Limpar previews
+                    document.getElementById('fotosPreview').innerHTML = '';
+                    
+                    // Mostrar fotos atuais
+                    const fotosAtuais = document.getElementById('fotosAtuais');
+                    fotosAtuais.innerHTML = '';
+                    
+                    if (imovel.fotos && imovel.fotos.length > 0) {
+                        imovel.fotos.forEach(foto => {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-3 mb-2';
+                            
+                            const card = document.createElement('div');
+                            card.className = 'card';
+                            
+                            const img = document.createElement('img');
+                            img.className = 'card-img-top';
+                            img.src = `/uploads/imoveis/${imovel.id}/${foto}`;
+                            img.style.height = '150px';
+                            img.style.objectFit = 'cover';
+                            
+                            card.appendChild(img);
+                            col.appendChild(card);
+                            fotosAtuais.appendChild(col);
+                        });
+                    }
+                    
+                    modalImovel.show();
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar imóvel:', error);
+                    alert('Erro ao carregar imóvel. Por favor, tente novamente.');
+                });
+            };
+            
+            window.excluirImovel = function(id) {
+                if (!confirm('Tem certeza que deseja excluir este imóvel?')) {
+                    return;
+                }
+                
+                fetch(`/imoveis/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        carregarImoveis();
+                        alert('Imóvel excluído com sucesso!');
+                    } else {
+                        throw new Error('Erro ao excluir imóvel');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao excluir imóvel:', error);
+                    alert('Erro ao excluir imóvel. Por favor, tente novamente.');
+                });
+            };
+            
+            window.editarUsuario = function(id) {
+                fetch(`/auth/usuarios/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(usuario => {
+                    document.getElementById('modalUsuarioTitulo').textContent = 'Editar Usuário';
+                    document.getElementById('usuarioId').value = usuario.id;
+                    document.getElementById('nome').value = usuario.nome;
+                    document.getElementById('email').value = usuario.email;
+                    document.getElementById('senha').value = '';
+                    document.getElementById('isAdmin').checked = usuario.is_admin;
+                    document.getElementById('senhaHelp').classList.remove('d-none');
+                    
+                    modalUsuario.show();
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar usuário:', error);
+                    alert('Erro ao carregar usuário. Por favor, tente novamente.');
+                });
+            };
+            
+            window.excluirUsuario = function(id) {
+                if (!confirm('Tem certeza que deseja excluir este usuário?')) {
+                    return;
+                }
+                
+                fetch(`/auth/usuarios/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        carregarUsuarios();
+                        alert('Usuário excluído com sucesso!');
+                    } else {
+                        throw new Error('Erro ao excluir usuário');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao excluir usuário:', error);
+                    alert('Erro ao excluir usuário. Por favor, tente novamente.');
+                });
+            };
+        });
+    </script>
+</body>
+</html>
